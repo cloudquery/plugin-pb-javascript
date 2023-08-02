@@ -6,7 +6,6 @@ gen-proto:
 
 	mkdir -p ./protos/cloudquery/plugin_v3
 	cp ./plugin-pb/plugin/v3/*.proto ./protos/cloudquery/plugin_v3/.
-	# python -m grpc_tools.protoc -I./protos --python_out=. --pyi_out=. --grpc_python_out=. ./protos/cloudquery/plugin_v3/*.proto
 	grpc_tools_node_protoc \
 		--js_out=import_style=commonjs,binary:. \
 		--grpc_out=grpc_js:. \
