@@ -8,8 +8,9 @@
     "proto-clone": "git clone https://github.com/cloudquery/plugin-pb",
     "proto-prepare": "cd plugin-pb && git pull && cd .. && rm -rf ./protos && mkdir -p ./protos/plugin/v3 && mkdir -p ./protos/discovery/v1 && cp -r ./plugin-pb/plugin/v3/* ./protos/plugin/v3 && cp -r ./plugin-pb/discovery/v1/* ./protos/discovery/v1",
     "proto-gen": "grpc_tools_node_protoc --ts_out=grpc_ts:. ./protos/plugin/v3/*.proto ./protos/discovery/v1/*.proto",
+    "proto-all": "npm run proto-prepare && npm run proto-gen",
     "build": "rm -rf dist && tsc",
-    "all": "npm run proto-prepare && npm run proto-gen && npm run build",
+    "all": "npm run proto-all && npm run build",
     "test": "gulp test"
   },
   "description": "This is a low-level auto-generated gRPC client and server for CloudQuery plugins",
@@ -38,7 +39,6 @@
     "@grpc/grpc-js": "^1.9.0",
     "@tsconfig/node16": "^16.1.0",
     "@types/google-protobuf": "^3.15.6",
-    "grpc_tools_node_protoc_ts": "^5.3.3",
     "grpc-tools": "^1.12.4",
     "protoc-gen-ts": "^0.8.6",
     "typescript": "^4.9.5"

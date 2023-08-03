@@ -22,7 +22,7 @@ jobs:
       - name: Generate code
         run: |
           npm run proto-clone
-          npm run build
+          npm run proto-all
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
