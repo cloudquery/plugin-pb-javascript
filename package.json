@@ -1,5 +1,46 @@
 {
+  "name": "@cloudquery/plugin-pb-js",
+  "version": "0.0.1",
+  "files": [],
+  "scripts": {
+    "proto-clone": "git clone https://github.com/cloudquery/plugin-pb",
+    "proto-prepare": "cd plugin-pb && git pull && cd .. && rm -rf ./protos && mkdir -p ./protos/plugin/v3 && mkdir -p ./protos/discovery/v1 && cp -r ./plugin-pb/plugin/v3/* ./protos/plugin/v3 && cp -r ./plugin-pb/discovery/v1/* ./protos/discovery/v1",
+    "proto-gen": "grpc_tools_node_protoc --ts_out=grpc_ts:. ./protos/plugin/v3/*.proto ./protos/discovery/v1/*.proto",
+    "build": "npm run proto-prepare && npm run proto-gen && rm -rf dist && tsc",
+    "test": "gulp test"
+  },
+  "description": "This is a low-level auto-generated gRPC client and server for CloudQuery plugins",
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "CloudQuery",
+    "CQ",
+    "ETL",
+    "data",
+    "plugin",
+    "data extraction",
+    "data engineering"
+  ],
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/cloudquery/plugin-pb-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudquery/plugin-pb-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cloudquery/plugin-pb-js/issues"
+  },
+  "author": "cloudquery (https://github.com/cloudquery)",
   "devDependencies": {
-    "grpc_tools_node_protoc_ts": "^5.3.3"
+    "@grpc/grpc-js": "^1.9.0",
+    "@tsconfig/node16": "^16.1.0",
+    "@types/google-protobuf": "^3.15.6",
+    "grpc_tools_node_protoc_ts": "^5.3.3",
+    "grpc-tools": "^1.12.4",
+    "protoc-gen-ts": "^0.8.6",
+    "typescript": "^4.9.5"
+  },
+  "engines": {
+    "node": ">=16.17.0"
   }
 }
