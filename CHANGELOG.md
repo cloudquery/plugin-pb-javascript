@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/cloudquery/plugin-pb-js/compare/v0.0.2...v0.0.3) (2023-08-03)
+
+
+### Bug Fixes
+
+* main entry ([a2d20c2](https://github.com/cloudquery/plugin-pb-js/commit/a2d20c2324387e1529ace59c8bf2b984d05a701a))
+
 ## [0.0.2](https://github.com/cloudquery/plugin-pb-js/compare/v0.0.1...v0.0.2) (2023-08-03)
 
 
