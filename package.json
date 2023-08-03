@@ -10,8 +10,7 @@
     "proto-gen": "grpc_tools_node_protoc --ts_out=grpc_ts:. ./protos/plugin/v3/*.proto ./protos/discovery/v1/*.proto",
     "proto-all": "npm run proto-prepare && npm run proto-gen",
     "build": "rm -rf dist && tsc",
-    "all": "npm run proto-all && npm run build",
-    "test": "gulp test"
+    "all": "npm run proto-all && npm run build"
   },
   "description": "This is a low-level auto-generated gRPC client and server for CloudQuery plugins",
   "keywords": [
