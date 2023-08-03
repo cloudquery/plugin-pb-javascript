@@ -6,3 +6,17 @@ This is a low-level auto-generated gRPC client and server for CloudQuery plugin 
 
 ### Prerequisites
 
+Node.js 16 or higher. Install Node.js from [here](https://nodejs.org/en/download/).
+
+### Install dependencies
+
+```bash
+npm ci
+```
+
+### Generate gRPC client and server
+
+```bash
+npm run proto-clone # Only needed once
+npm run build
+```
