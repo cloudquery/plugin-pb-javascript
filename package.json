@@ -1,7 +1,9 @@
 {
   "name": "@cloudquery/plugin-pb-js",
   "version": "0.0.1",
-  "files": [],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "proto-clone": "git clone https://github.com/cloudquery/plugin-pb",
     "proto-prepare": "cd plugin-pb && git pull && cd .. && rm -rf ./protos && mkdir -p ./protos/plugin/v3 && mkdir -p ./protos/discovery/v1 && cp -r ./plugin-pb/plugin/v3/* ./protos/plugin/v3 && cp -r ./plugin-pb/discovery/v1/* ./protos/discovery/v1",
