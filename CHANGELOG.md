@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/cloudquery/plugin-pb-js/compare/v0.0.3...v0.0.4) (2023-08-03)
+
+
+### Bug Fixes
+
+* Add missing dependency ([daae247](https://github.com/cloudquery/plugin-pb-js/commit/daae2473b5a9e021cf4918c03062a6474632a944))
+
 ## [0.0.3](https://github.com/cloudquery/plugin-pb-js/compare/v0.0.2...v0.0.3) (2023-08-03)
 
 
