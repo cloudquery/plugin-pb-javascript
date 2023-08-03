@@ -16,6 +16,10 @@ jobs:
           cache: "npm"
           node-version: "16"
 
+      - name: Install dependencies
+        run: |
+          npm ci
+
       - name: Generate code
         run: |
           npm run proto-clone
