@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.5...v0.0.6) (2023-08-07)
+
+
+### Bug Fixes
+
+* Generate JavaScript Code from `plugin-pb` ([#10](https://github.com/cloudquery/plugin-pb-javascript/issues/10)) ([7301495](https://github.com/cloudquery/plugin-pb-javascript/commit/7301495a6fe780a47587b59f6ec9ba1c5c563e83))
+
 ## [0.0.5](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.4...v0.0.5) (2023-08-07)
 
 
