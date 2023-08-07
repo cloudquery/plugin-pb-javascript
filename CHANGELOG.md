@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.4...v0.0.5) (2023-08-07)
+
+
+### Bug Fixes
+
+* Rename to `plugin-pb-javascript` ([065c525](https://github.com/cloudquery/plugin-pb-javascript/commit/065c52558f9c6b64524db3ffda12c2a6fd79a6b5))
+
 ## [0.0.4](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.3...v0.0.4) (2023-08-03)
 
 ### Bug Fixes
