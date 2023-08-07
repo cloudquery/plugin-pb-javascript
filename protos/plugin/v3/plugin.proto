@@ -4,6 +4,8 @@ package cloudquery.plugin.v3;
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/cloudquery/plugin-pb-go/pb/plugin/v3;plugin";
+option java_package = "io.cloudquery.plugin.v3";
+option java_multiple_files = true;
 
 service Plugin {
   // Get the name of the plugin
