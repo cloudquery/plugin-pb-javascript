@@ -2,6 +2,8 @@ syntax = "proto3";
 package cloudquery.discovery.v1;
 
 option go_package = "github.com/cloudquery/plugin-pb-go/pb/discovery/v1;discovery";
+option java_package = "io.cloudquery.discovery.v1";
+option java_multiple_files = true;
 
 service Discovery {
   // Get the name of the plugin
