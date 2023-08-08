@@ -53,6 +53,7 @@ message GetTables {
   message Request {
     repeated string tables = 1;
     repeated string skip_tables = 2;
+    bool skip_dependent_tables = 3;
   }
   message Response {
     // marshalled []arrow.Schema

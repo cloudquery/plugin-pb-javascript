@@ -523,6 +523,7 @@ export namespace cloudquery.plugin.v3 {
             constructor(data?: any[] | {
                 tables?: string[];
                 skip_tables?: string[];
+                skip_dependent_tables?: boolean;
             }) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1, 2], this.#one_of_decls);
@@ -532,6 +533,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("skip_tables" in data && data.skip_tables != undefined) {
                         this.skip_tables = data.skip_tables;
+                    }
+                    if ("skip_dependent_tables" in data && data.skip_dependent_tables != undefined) {
+                        this.skip_dependent_tables = data.skip_dependent_tables;
                     }
                 }
             }
@@ -547,9 +551,16 @@ export namespace cloudquery.plugin.v3 {
             set skip_tables(value: string[]) {
                 pb_1.Message.setField(this, 2, value);
             }
+            get skip_dependent_tables() {
+                return pb_1.Message.getFieldWithDefault(this, 3, false) as boolean;
+            }
+            set skip_dependent_tables(value: boolean) {
+                pb_1.Message.setField(this, 3, value);
+            }
             static fromObject(data: {
                 tables?: string[];
                 skip_tables?: string[];
+                skip_dependent_tables?: boolean;
             }): Request {
                 const message = new Request({});
                 if (data.tables != null) {
@@ -558,18 +569,25 @@ export namespace cloudquery.plugin.v3 {
                 if (data.skip_tables != null) {
                     message.skip_tables = data.skip_tables;
                 }
+                if (data.skip_dependent_tables != null) {
+                    message.skip_dependent_tables = data.skip_dependent_tables;
+                }
                 return message;
             }
             toObject() {
                 const data: {
                     tables?: string[];
                     skip_tables?: string[];
+                    skip_dependent_tables?: boolean;
                 } = {};
                 if (this.tables != null) {
                     data.tables = this.tables;
                 }
                 if (this.skip_tables != null) {
                     data.skip_tables = this.skip_tables;
+                }
+                if (this.skip_dependent_tables != null) {
+                    data.skip_dependent_tables = this.skip_dependent_tables;
                 }
                 return data;
             }
@@ -581,6 +599,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeRepeatedString(1, this.tables);
                 if (this.skip_tables.length)
                     writer.writeRepeatedString(2, this.skip_tables);
+                if (this.skip_dependent_tables != false)
+                    writer.writeBool(3, this.skip_dependent_tables);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -595,6 +615,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 2:
                             pb_1.Message.addToRepeatedField(message, 2, reader.readString());
+                            break;
+                        case 3:
+                            message.skip_dependent_tables = reader.readBool();
                             break;
                         default: reader.skipField();
                     }
