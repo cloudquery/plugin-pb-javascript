@@ -2181,10 +2181,10 @@ export namespace cloudquery.plugin.v3 {
         GetTables: GrpcUnaryServiceInterface<GetTables.Request, GetTables.Response> = (message: GetTables.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<GetTables.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<GetTables.Response>, callback?: grpc_1.requestCallback<GetTables.Response>): grpc_1.ClientUnaryCall => {
             return super.GetTables(message, metadata, options, callback);
         };
-        Sync: GrpcStreamServiceInterface<Sync.Request, Sync.Request> = (message: Sync.Request, metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientReadableStream<Sync.Request> => {
+        Sync: GrpcStreamServiceInterface<Sync.Request, Sync.Response> = (message: Sync.Request, metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientReadableStream<Sync.Response> => {
             return super.Sync(message, metadata, options);
         };
-        Read: GrpcStreamServiceInterface<Read.Request, Read.Request> = (message: Read.Request, metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientReadableStream<Read.Request> => {
+        Read: GrpcStreamServiceInterface<Read.Request, Read.Response> = (message: Read.Request, metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientReadableStream<Read.Response> => {
             return super.Read(message, metadata, options);
         };
         Write: GrpWritableServiceInterface<Write.Request, Write.Response> = (metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<Write.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<Write.Response>, callback?: grpc_1.requestCallback<Write.Response>): grpc_1.ClientWritableStream<Write.Request> => {
