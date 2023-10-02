@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.9](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.8...v0.0.9) (2023-10-02)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency @grpc/grpc-js to v1.9.4 ([#18](https://github.com/cloudquery/plugin-pb-javascript/issues/18)) ([7a52dcf](https://github.com/cloudquery/plugin-pb-javascript/commit/7a52dcf1e8407e75472d79aca14a659784c172f0))
+* **deps:** Update dependency @types/google-protobuf to v3.15.7 ([#19](https://github.com/cloudquery/plugin-pb-javascript/issues/19)) ([11a8b1c](https://github.com/cloudquery/plugin-pb-javascript/commit/11a8b1cc053d1b55b3047c9cd28f58b17fa5bf0f))
+* **deps:** Update dependency protoc-gen-ts to v0.8.7 ([#21](https://github.com/cloudquery/plugin-pb-javascript/issues/21)) ([80b0efd](https://github.com/cloudquery/plugin-pb-javascript/commit/80b0efd64c29eccbc0692e6542ec6a697f13b86f))
+* Generate JavaScript Code from `plugin-pb` ([#23](https://github.com/cloudquery/plugin-pb-javascript/issues/23)) ([6832d73](https://github.com/cloudquery/plugin-pb-javascript/commit/6832d7319b9025123bc04754b465d638bbd2b44f))
+
 ## [0.0.8](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.7...v0.0.8) (2023-09-01)
 
 
