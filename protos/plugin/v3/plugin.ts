@@ -874,6 +874,119 @@ export namespace cloudquery.plugin.v3 {
                 return MessageMigrateTable.deserialize(bytes);
             }
         }
+        export class MessageDeleteRecord extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                table_name?: string;
+                where_clause?: PredicatesGroup[];
+                table_relations?: TableRelation[];
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2, 3], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("table_name" in data && data.table_name != undefined) {
+                        this.table_name = data.table_name;
+                    }
+                    if ("where_clause" in data && data.where_clause != undefined) {
+                        this.where_clause = data.where_clause;
+                    }
+                    if ("table_relations" in data && data.table_relations != undefined) {
+                        this.table_relations = data.table_relations;
+                    }
+                }
+            }
+            get table_name() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set table_name(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get where_clause() {
+                return pb_1.Message.getRepeatedWrapperField(this, PredicatesGroup, 2) as PredicatesGroup[];
+            }
+            set where_clause(value: PredicatesGroup[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 2, value);
+            }
+            get table_relations() {
+                return pb_1.Message.getRepeatedWrapperField(this, TableRelation, 3) as TableRelation[];
+            }
+            set table_relations(value: TableRelation[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 3, value);
+            }
+            static fromObject(data: {
+                table_name?: string;
+                where_clause?: ReturnType<typeof PredicatesGroup.prototype.toObject>[];
+                table_relations?: ReturnType<typeof TableRelation.prototype.toObject>[];
+            }): MessageDeleteRecord {
+                const message = new MessageDeleteRecord({});
+                if (data.table_name != null) {
+                    message.table_name = data.table_name;
+                }
+                if (data.where_clause != null) {
+                    message.where_clause = data.where_clause.map(item => PredicatesGroup.fromObject(item));
+                }
+                if (data.table_relations != null) {
+                    message.table_relations = data.table_relations.map(item => TableRelation.fromObject(item));
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    table_name?: string;
+                    where_clause?: ReturnType<typeof PredicatesGroup.prototype.toObject>[];
+                    table_relations?: ReturnType<typeof TableRelation.prototype.toObject>[];
+                } = {};
+                if (this.table_name != null) {
+                    data.table_name = this.table_name;
+                }
+                if (this.where_clause != null) {
+                    data.where_clause = this.where_clause.map((item: PredicatesGroup) => item.toObject());
+                }
+                if (this.table_relations != null) {
+                    data.table_relations = this.table_relations.map((item: TableRelation) => item.toObject());
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.table_name.length)
+                    writer.writeString(1, this.table_name);
+                if (this.where_clause.length)
+                    writer.writeRepeatedMessage(2, this.where_clause, (item: PredicatesGroup) => item.serialize(writer));
+                if (this.table_relations.length)
+                    writer.writeRepeatedMessage(3, this.table_relations, (item: TableRelation) => item.serialize(writer));
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MessageDeleteRecord {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MessageDeleteRecord();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.table_name = reader.readString();
+                            break;
+                        case 2:
+                            reader.readMessage(message.where_clause, () => pb_1.Message.addToRepeatedWrapperField(message, 2, PredicatesGroup.deserialize(reader), PredicatesGroup));
+                            break;
+                        case 3:
+                            reader.readMessage(message.table_relations, () => pb_1.Message.addToRepeatedWrapperField(message, 3, TableRelation.deserialize(reader), TableRelation));
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): MessageDeleteRecord {
+                return MessageDeleteRecord.deserialize(bytes);
+            }
+        }
         export class BackendOptions extends pb_1.Message {
             #one_of_decls: number[][] = [];
             constructor(data?: any[] | {
@@ -1127,13 +1240,19 @@ export namespace cloudquery.plugin.v3 {
             }
         }
         export class Response extends pb_1.Message {
-            #one_of_decls: number[][] = [[1, 2]];
+            #one_of_decls: number[][] = [[1, 2, 3]];
             constructor(data?: any[] | ({} & (({
                 migrate_table?: Sync.MessageMigrateTable;
                 insert?: never;
+                delete_record?: never;
             } | {
                 migrate_table?: never;
                 insert?: Sync.MessageInsert;
+                delete_record?: never;
+            } | {
+                migrate_table?: never;
+                insert?: never;
+                delete_record?: Sync.MessageDeleteRecord;
             })))) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -1143,6 +1262,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("insert" in data && data.insert != undefined) {
                         this.insert = data.insert;
+                    }
+                    if ("delete_record" in data && data.delete_record != undefined) {
+                        this.delete_record = data.delete_record;
                     }
                 }
             }
@@ -1164,19 +1286,30 @@ export namespace cloudquery.plugin.v3 {
             get has_insert() {
                 return pb_1.Message.getField(this, 2) != null;
             }
+            get delete_record() {
+                return pb_1.Message.getWrapperField(this, Sync.MessageDeleteRecord, 3) as Sync.MessageDeleteRecord;
+            }
+            set delete_record(value: Sync.MessageDeleteRecord) {
+                pb_1.Message.setOneofWrapperField(this, 3, this.#one_of_decls[0], value);
+            }
+            get has_delete_record() {
+                return pb_1.Message.getField(this, 3) != null;
+            }
             get message() {
                 const cases: {
-                    [index: number]: "none" | "migrate_table" | "insert";
+                    [index: number]: "none" | "migrate_table" | "insert" | "delete_record";
                 } = {
                     0: "none",
                     1: "migrate_table",
-                    2: "insert"
+                    2: "insert",
+                    3: "delete_record"
                 };
-                return cases[pb_1.Message.computeOneofCase(this, [1, 2])];
+                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3])];
             }
             static fromObject(data: {
                 migrate_table?: ReturnType<typeof Sync.MessageMigrateTable.prototype.toObject>;
                 insert?: ReturnType<typeof Sync.MessageInsert.prototype.toObject>;
+                delete_record?: ReturnType<typeof Sync.MessageDeleteRecord.prototype.toObject>;
             }): Response {
                 const message = new Response({});
                 if (data.migrate_table != null) {
@@ -1185,18 +1318,25 @@ export namespace cloudquery.plugin.v3 {
                 if (data.insert != null) {
                     message.insert = Sync.MessageInsert.fromObject(data.insert);
                 }
+                if (data.delete_record != null) {
+                    message.delete_record = Sync.MessageDeleteRecord.fromObject(data.delete_record);
+                }
                 return message;
             }
             toObject() {
                 const data: {
                     migrate_table?: ReturnType<typeof Sync.MessageMigrateTable.prototype.toObject>;
                     insert?: ReturnType<typeof Sync.MessageInsert.prototype.toObject>;
+                    delete_record?: ReturnType<typeof Sync.MessageDeleteRecord.prototype.toObject>;
                 } = {};
                 if (this.migrate_table != null) {
                     data.migrate_table = this.migrate_table.toObject();
                 }
                 if (this.insert != null) {
                     data.insert = this.insert.toObject();
+                }
+                if (this.delete_record != null) {
+                    data.delete_record = this.delete_record.toObject();
                 }
                 return data;
             }
@@ -1208,6 +1348,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(1, this.migrate_table, () => this.migrate_table.serialize(writer));
                 if (this.has_insert)
                     writer.writeMessage(2, this.insert, () => this.insert.serialize(writer));
+                if (this.has_delete_record)
+                    writer.writeMessage(3, this.delete_record, () => this.delete_record.serialize(writer));
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1222,6 +1364,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 2:
                             reader.readMessage(message.insert, () => message.insert = Sync.MessageInsert.deserialize(reader));
+                            break;
+                        case 3:
+                            reader.readMessage(message.delete_record, () => message.delete_record = Sync.MessageDeleteRecord.deserialize(reader));
                             break;
                         default: reader.skipField();
                     }
@@ -1410,6 +1555,310 @@ export namespace cloudquery.plugin.v3 {
             static deserializeBinary(bytes: Uint8Array): Response {
                 return Response.deserialize(bytes);
             }
+        }
+    }
+    export class TableRelation extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            table_name?: string;
+            parent_table?: string;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("table_name" in data && data.table_name != undefined) {
+                    this.table_name = data.table_name;
+                }
+                if ("parent_table" in data && data.parent_table != undefined) {
+                    this.parent_table = data.parent_table;
+                }
+            }
+        }
+        get table_name() {
+            return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+        }
+        set table_name(value: string) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get parent_table() {
+            return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        }
+        set parent_table(value: string) {
+            pb_1.Message.setField(this, 2, value);
+        }
+        static fromObject(data: {
+            table_name?: string;
+            parent_table?: string;
+        }): TableRelation {
+            const message = new TableRelation({});
+            if (data.table_name != null) {
+                message.table_name = data.table_name;
+            }
+            if (data.parent_table != null) {
+                message.parent_table = data.parent_table;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                table_name?: string;
+                parent_table?: string;
+            } = {};
+            if (this.table_name != null) {
+                data.table_name = this.table_name;
+            }
+            if (this.parent_table != null) {
+                data.parent_table = this.parent_table;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.table_name.length)
+                writer.writeString(1, this.table_name);
+            if (this.parent_table.length)
+                writer.writeString(2, this.parent_table);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): TableRelation {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new TableRelation();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        message.table_name = reader.readString();
+                        break;
+                    case 2:
+                        message.parent_table = reader.readString();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): TableRelation {
+            return TableRelation.deserialize(bytes);
+        }
+    }
+    export class Predicate extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            operator?: Predicate.Operator;
+            column?: string;
+            record?: Uint8Array;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("operator" in data && data.operator != undefined) {
+                    this.operator = data.operator;
+                }
+                if ("column" in data && data.column != undefined) {
+                    this.column = data.column;
+                }
+                if ("record" in data && data.record != undefined) {
+                    this.record = data.record;
+                }
+            }
+        }
+        get operator() {
+            return pb_1.Message.getFieldWithDefault(this, 1, Predicate.Operator.EQ) as Predicate.Operator;
+        }
+        set operator(value: Predicate.Operator) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get column() {
+            return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        }
+        set column(value: string) {
+            pb_1.Message.setField(this, 2, value);
+        }
+        get record() {
+            return pb_1.Message.getFieldWithDefault(this, 3, new Uint8Array(0)) as Uint8Array;
+        }
+        set record(value: Uint8Array) {
+            pb_1.Message.setField(this, 3, value);
+        }
+        static fromObject(data: {
+            operator?: Predicate.Operator;
+            column?: string;
+            record?: Uint8Array;
+        }): Predicate {
+            const message = new Predicate({});
+            if (data.operator != null) {
+                message.operator = data.operator;
+            }
+            if (data.column != null) {
+                message.column = data.column;
+            }
+            if (data.record != null) {
+                message.record = data.record;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                operator?: Predicate.Operator;
+                column?: string;
+                record?: Uint8Array;
+            } = {};
+            if (this.operator != null) {
+                data.operator = this.operator;
+            }
+            if (this.column != null) {
+                data.column = this.column;
+            }
+            if (this.record != null) {
+                data.record = this.record;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.operator != Predicate.Operator.EQ)
+                writer.writeEnum(1, this.operator);
+            if (this.column.length)
+                writer.writeString(2, this.column);
+            if (this.record.length)
+                writer.writeBytes(3, this.record);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Predicate {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Predicate();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        message.operator = reader.readEnum();
+                        break;
+                    case 2:
+                        message.column = reader.readString();
+                        break;
+                    case 3:
+                        message.record = reader.readBytes();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): Predicate {
+            return Predicate.deserialize(bytes);
+        }
+    }
+    export namespace Predicate {
+        export enum Operator {
+            EQ = 0
+        }
+    }
+    export class PredicatesGroup extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            grouping_type?: PredicatesGroup.GroupingType;
+            predicates?: Predicate[];
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("grouping_type" in data && data.grouping_type != undefined) {
+                    this.grouping_type = data.grouping_type;
+                }
+                if ("predicates" in data && data.predicates != undefined) {
+                    this.predicates = data.predicates;
+                }
+            }
+        }
+        get grouping_type() {
+            return pb_1.Message.getFieldWithDefault(this, 1, PredicatesGroup.GroupingType.AND) as PredicatesGroup.GroupingType;
+        }
+        set grouping_type(value: PredicatesGroup.GroupingType) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get predicates() {
+            return pb_1.Message.getRepeatedWrapperField(this, Predicate, 2) as Predicate[];
+        }
+        set predicates(value: Predicate[]) {
+            pb_1.Message.setRepeatedWrapperField(this, 2, value);
+        }
+        static fromObject(data: {
+            grouping_type?: PredicatesGroup.GroupingType;
+            predicates?: ReturnType<typeof Predicate.prototype.toObject>[];
+        }): PredicatesGroup {
+            const message = new PredicatesGroup({});
+            if (data.grouping_type != null) {
+                message.grouping_type = data.grouping_type;
+            }
+            if (data.predicates != null) {
+                message.predicates = data.predicates.map(item => Predicate.fromObject(item));
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                grouping_type?: PredicatesGroup.GroupingType;
+                predicates?: ReturnType<typeof Predicate.prototype.toObject>[];
+            } = {};
+            if (this.grouping_type != null) {
+                data.grouping_type = this.grouping_type;
+            }
+            if (this.predicates != null) {
+                data.predicates = this.predicates.map((item: Predicate) => item.toObject());
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.grouping_type != PredicatesGroup.GroupingType.AND)
+                writer.writeEnum(1, this.grouping_type);
+            if (this.predicates.length)
+                writer.writeRepeatedMessage(2, this.predicates, (item: Predicate) => item.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): PredicatesGroup {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new PredicatesGroup();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        message.grouping_type = reader.readEnum();
+                        break;
+                    case 2:
+                        reader.readMessage(message.predicates, () => pb_1.Message.addToRepeatedWrapperField(message, 2, Predicate.deserialize(reader), Predicate));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): PredicatesGroup {
+            return PredicatesGroup.deserialize(bytes);
+        }
+    }
+    export namespace PredicatesGroup {
+        export enum GroupingType {
+            AND = 0,
+            OR = 1
         }
     }
     export class Write extends pb_1.Message {
@@ -1752,20 +2201,141 @@ export namespace cloudquery.plugin.v3 {
                 return MessageDeleteStale.deserialize(bytes);
             }
         }
+        export class MessageDeleteRecord extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                table_name?: string;
+                where_clause?: PredicatesGroup[];
+                table_relations?: TableRelation[];
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2, 3], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("table_name" in data && data.table_name != undefined) {
+                        this.table_name = data.table_name;
+                    }
+                    if ("where_clause" in data && data.where_clause != undefined) {
+                        this.where_clause = data.where_clause;
+                    }
+                    if ("table_relations" in data && data.table_relations != undefined) {
+                        this.table_relations = data.table_relations;
+                    }
+                }
+            }
+            get table_name() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set table_name(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get where_clause() {
+                return pb_1.Message.getRepeatedWrapperField(this, PredicatesGroup, 2) as PredicatesGroup[];
+            }
+            set where_clause(value: PredicatesGroup[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 2, value);
+            }
+            get table_relations() {
+                return pb_1.Message.getRepeatedWrapperField(this, TableRelation, 3) as TableRelation[];
+            }
+            set table_relations(value: TableRelation[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 3, value);
+            }
+            static fromObject(data: {
+                table_name?: string;
+                where_clause?: ReturnType<typeof PredicatesGroup.prototype.toObject>[];
+                table_relations?: ReturnType<typeof TableRelation.prototype.toObject>[];
+            }): MessageDeleteRecord {
+                const message = new MessageDeleteRecord({});
+                if (data.table_name != null) {
+                    message.table_name = data.table_name;
+                }
+                if (data.where_clause != null) {
+                    message.where_clause = data.where_clause.map(item => PredicatesGroup.fromObject(item));
+                }
+                if (data.table_relations != null) {
+                    message.table_relations = data.table_relations.map(item => TableRelation.fromObject(item));
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    table_name?: string;
+                    where_clause?: ReturnType<typeof PredicatesGroup.prototype.toObject>[];
+                    table_relations?: ReturnType<typeof TableRelation.prototype.toObject>[];
+                } = {};
+                if (this.table_name != null) {
+                    data.table_name = this.table_name;
+                }
+                if (this.where_clause != null) {
+                    data.where_clause = this.where_clause.map((item: PredicatesGroup) => item.toObject());
+                }
+                if (this.table_relations != null) {
+                    data.table_relations = this.table_relations.map((item: TableRelation) => item.toObject());
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.table_name.length)
+                    writer.writeString(1, this.table_name);
+                if (this.where_clause.length)
+                    writer.writeRepeatedMessage(2, this.where_clause, (item: PredicatesGroup) => item.serialize(writer));
+                if (this.table_relations.length)
+                    writer.writeRepeatedMessage(3, this.table_relations, (item: TableRelation) => item.serialize(writer));
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MessageDeleteRecord {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MessageDeleteRecord();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.table_name = reader.readString();
+                            break;
+                        case 2:
+                            reader.readMessage(message.where_clause, () => pb_1.Message.addToRepeatedWrapperField(message, 2, PredicatesGroup.deserialize(reader), PredicatesGroup));
+                            break;
+                        case 3:
+                            reader.readMessage(message.table_relations, () => pb_1.Message.addToRepeatedWrapperField(message, 3, TableRelation.deserialize(reader), TableRelation));
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): MessageDeleteRecord {
+                return MessageDeleteRecord.deserialize(bytes);
+            }
+        }
         export class Request extends pb_1.Message {
-            #one_of_decls: number[][] = [[1, 2, 3]];
+            #one_of_decls: number[][] = [[1, 2, 3, 4]];
             constructor(data?: any[] | ({} & (({
                 migrate_table?: Write.MessageMigrateTable;
                 insert?: never;
                 delete?: never;
+                delete_record?: never;
             } | {
                 migrate_table?: never;
                 insert?: Write.MessageInsert;
                 delete?: never;
+                delete_record?: never;
             } | {
                 migrate_table?: never;
                 insert?: never;
                 delete?: Write.MessageDeleteStale;
+                delete_record?: never;
+            } | {
+                migrate_table?: never;
+                insert?: never;
+                delete?: never;
+                delete_record?: Write.MessageDeleteRecord;
             })))) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -1778,6 +2348,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("delete" in data && data.delete != undefined) {
                         this.delete = data.delete;
+                    }
+                    if ("delete_record" in data && data.delete_record != undefined) {
+                        this.delete_record = data.delete_record;
                     }
                 }
             }
@@ -1808,21 +2381,32 @@ export namespace cloudquery.plugin.v3 {
             get has_delete() {
                 return pb_1.Message.getField(this, 3) != null;
             }
+            get delete_record() {
+                return pb_1.Message.getWrapperField(this, Write.MessageDeleteRecord, 4) as Write.MessageDeleteRecord;
+            }
+            set delete_record(value: Write.MessageDeleteRecord) {
+                pb_1.Message.setOneofWrapperField(this, 4, this.#one_of_decls[0], value);
+            }
+            get has_delete_record() {
+                return pb_1.Message.getField(this, 4) != null;
+            }
             get message() {
                 const cases: {
-                    [index: number]: "none" | "migrate_table" | "insert" | "delete";
+                    [index: number]: "none" | "migrate_table" | "insert" | "delete" | "delete_record";
                 } = {
                     0: "none",
                     1: "migrate_table",
                     2: "insert",
-                    3: "delete"
+                    3: "delete",
+                    4: "delete_record"
                 };
-                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3])];
+                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3, 4])];
             }
             static fromObject(data: {
                 migrate_table?: ReturnType<typeof Write.MessageMigrateTable.prototype.toObject>;
                 insert?: ReturnType<typeof Write.MessageInsert.prototype.toObject>;
                 delete?: ReturnType<typeof Write.MessageDeleteStale.prototype.toObject>;
+                delete_record?: ReturnType<typeof Write.MessageDeleteRecord.prototype.toObject>;
             }): Request {
                 const message = new Request({});
                 if (data.migrate_table != null) {
@@ -1834,6 +2418,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.delete != null) {
                     message.delete = Write.MessageDeleteStale.fromObject(data.delete);
                 }
+                if (data.delete_record != null) {
+                    message.delete_record = Write.MessageDeleteRecord.fromObject(data.delete_record);
+                }
                 return message;
             }
             toObject() {
@@ -1841,6 +2428,7 @@ export namespace cloudquery.plugin.v3 {
                     migrate_table?: ReturnType<typeof Write.MessageMigrateTable.prototype.toObject>;
                     insert?: ReturnType<typeof Write.MessageInsert.prototype.toObject>;
                     delete?: ReturnType<typeof Write.MessageDeleteStale.prototype.toObject>;
+                    delete_record?: ReturnType<typeof Write.MessageDeleteRecord.prototype.toObject>;
                 } = {};
                 if (this.migrate_table != null) {
                     data.migrate_table = this.migrate_table.toObject();
@@ -1850,6 +2438,9 @@ export namespace cloudquery.plugin.v3 {
                 }
                 if (this.delete != null) {
                     data.delete = this.delete.toObject();
+                }
+                if (this.delete_record != null) {
+                    data.delete_record = this.delete_record.toObject();
                 }
                 return data;
             }
@@ -1863,6 +2454,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(2, this.insert, () => this.insert.serialize(writer));
                 if (this.has_delete)
                     writer.writeMessage(3, this.delete, () => this.delete.serialize(writer));
+                if (this.has_delete_record)
+                    writer.writeMessage(4, this.delete_record, () => this.delete_record.serialize(writer));
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1880,6 +2473,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 3:
                             reader.readMessage(message.delete, () => message.delete = Write.MessageDeleteStale.deserialize(reader));
+                            break;
+                        case 4:
+                            reader.readMessage(message.delete_record, () => message.delete_record = Write.MessageDeleteRecord.deserialize(reader));
                             break;
                         default: reader.skipField();
                     }
