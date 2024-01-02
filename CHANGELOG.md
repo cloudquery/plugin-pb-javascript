@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.0.1](https://github.com/cloudquery/plugin-pb-javascript/compare/plugin-pb-javascript-v0.0.12...plugin-pb-javascript-v0.0.1) (2024-01-02)
+
+
+### Features
+
+* Add initial generation of protoc  ([#1](https://github.com/cloudquery/plugin-pb-javascript/issues/1)) ([7f51e83](https://github.com/cloudquery/plugin-pb-javascript/commit/7f51e83e4854afd3ed58d6f4bb562914af5c1a96))
+
+
+### Bug Fixes
+
+* Add missing dependency ([daae247](https://github.com/cloudquery/plugin-pb-javascript/commit/daae2473b5a9e021cf4918c03062a6474632a944))
+* **deps:** Update dependency @grpc/grpc-js to v1.9.12 ([#30](https://github.com/cloudquery/plugin-pb-javascript/issues/30)) ([8de7736](https://github.com/cloudquery/plugin-pb-javascript/commit/8de7736e2ffb3b1b09649fee274e31b21cc85f36))
+* **deps:** Update dependency @grpc/grpc-js to v1.9.13 ([#33](https://github.com/cloudquery/plugin-pb-javascript/issues/33)) ([6a5affe](https://github.com/cloudquery/plugin-pb-javascript/commit/6a5affe5ef9139e83626199a5e9f9c6b2618bc9c))
+* **deps:** Update dependency @grpc/grpc-js to v1.9.2 ([#14](https://github.com/cloudquery/plugin-pb-javascript/issues/14)) ([f9b2799](https://github.com/cloudquery/plugin-pb-javascript/commit/f9b279985de8b8bce78851f1f9c640128751cde3))
+* **deps:** Update dependency @grpc/grpc-js to v1.9.4 ([#18](https://github.com/cloudquery/plugin-pb-javascript/issues/18)) ([7a52dcf](https://github.com/cloudquery/plugin-pb-javascript/commit/7a52dcf1e8407e75472d79aca14a659784c172f0))
+* **deps:** Update dependency @grpc/grpc-js to v1.9.9 ([#26](https://github.com/cloudquery/plugin-pb-javascript/issues/26)) ([dc9fc92](https://github.com/cloudquery/plugin-pb-javascript/commit/dc9fc92ea8bdf2d615e1a23aa6bd867a8b3cf1bf))
+* **deps:** Update dependency @tsconfig/node16 to v16.1.1 ([#15](https://github.com/cloudquery/plugin-pb-javascript/issues/15)) ([043cd78](https://github.com/cloudquery/plugin-pb-javascript/commit/043cd78a327d923ed3fa37a082c54df86a046b1e))
+* **deps:** Update dependency @types/google-protobuf to v3.15.12 ([#31](https://github.com/cloudquery/plugin-pb-javascript/issues/31)) ([0b70dcb](https://github.com/cloudquery/plugin-pb-javascript/commit/0b70dcb81c30788c0fbda98c5b427eb7b2c0851a))
+* **deps:** Update dependency @types/google-protobuf to v3.15.7 ([#19](https://github.com/cloudquery/plugin-pb-javascript/issues/19)) ([11a8b1c](https://github.com/cloudquery/plugin-pb-javascript/commit/11a8b1cc053d1b55b3047c9cd28f58b17fa5bf0f))
+* **deps:** Update dependency @types/google-protobuf to v3.15.9 ([#27](https://github.com/cloudquery/plugin-pb-javascript/issues/27)) ([ff571ee](https://github.com/cloudquery/plugin-pb-javascript/commit/ff571eed9cb36ba259bca8cc25a02be7d7886e40))
+* **deps:** Update dependency protoc-gen-ts to v0.8.7 ([#21](https://github.com/cloudquery/plugin-pb-javascript/issues/21)) ([80b0efd](https://github.com/cloudquery/plugin-pb-javascript/commit/80b0efd64c29eccbc0692e6542ec6a697f13b86f))
+* Generate JavaScript Code from `plugin-pb` ([#10](https://github.com/cloudquery/plugin-pb-javascript/issues/10)) ([7301495](https://github.com/cloudquery/plugin-pb-javascript/commit/7301495a6fe780a47587b59f6ec9ba1c5c563e83))
+* Generate JavaScript Code from `plugin-pb` ([#12](https://github.com/cloudquery/plugin-pb-javascript/issues/12)) ([e875659](https://github.com/cloudquery/plugin-pb-javascript/commit/e875659937673378073fe1104c79060b0b0be732))
+* Generate JavaScript Code from `plugin-pb` ([#23](https://github.com/cloudquery/plugin-pb-javascript/issues/23)) ([6832d73](https://github.com/cloudquery/plugin-pb-javascript/commit/6832d7319b9025123bc04754b465d638bbd2b44f))
+* Generate JavaScript Code from `plugin-pb` ([#24](https://github.com/cloudquery/plugin-pb-javascript/issues/24)) ([8518270](https://github.com/cloudquery/plugin-pb-javascript/commit/8518270a93e27d3baf5a99c462833fceef9ce575))
+* main entry ([a2d20c2](https://github.com/cloudquery/plugin-pb-javascript/commit/a2d20c2324387e1529ace59c8bf2b984d05a701a))
+* Publish ([427b602](https://github.com/cloudquery/plugin-pb-javascript/commit/427b602ac5dfaa3440b0afc7b1969be6db2b1bb2))
+* Rename to `plugin-pb-javascript` ([065c525](https://github.com/cloudquery/plugin-pb-javascript/commit/065c52558f9c6b64524db3ffda12c2a6fd79a6b5))
+
+
+### Miscellaneous Chores
+
+* Release 0.0.1 ([cf9c466](https://github.com/cloudquery/plugin-pb-javascript/commit/cf9c466ebed3a3dbe26b5794f079828ccc291e06))
+
 ## [0.0.12](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.11...v0.0.12) (2023-12-01)
 
 
