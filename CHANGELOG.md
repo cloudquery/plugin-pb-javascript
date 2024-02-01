@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.14](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.13...v0.0.14) (2024-02-01)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency @grpc/grpc-js to v1.9.14 ([#39](https://github.com/cloudquery/plugin-pb-javascript/issues/39)) ([edf7ec3](https://github.com/cloudquery/plugin-pb-javascript/commit/edf7ec355ced188771e1ee89792e74695ff64099))
+
 ## [0.0.13](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.12...v0.0.13) (2024-01-02)
 
 
