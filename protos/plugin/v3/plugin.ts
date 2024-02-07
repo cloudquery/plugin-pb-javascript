@@ -305,6 +305,167 @@ export namespace cloudquery.plugin.v3 {
             }
         }
     }
+    export class GetSpecSchema extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {}) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") { }
+        }
+        static fromObject(data: {}): GetSpecSchema {
+            const message = new GetSpecSchema({});
+            return message;
+        }
+        toObject() {
+            const data: {} = {};
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): GetSpecSchema {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new GetSpecSchema();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): GetSpecSchema {
+            return GetSpecSchema.deserialize(bytes);
+        }
+    }
+    export namespace GetSpecSchema {
+        export class Request extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {}) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") { }
+            }
+            static fromObject(data: {}): Request {
+                const message = new Request({});
+                return message;
+            }
+            toObject() {
+                const data: {} = {};
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Request {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Request();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Request {
+                return Request.deserialize(bytes);
+            }
+        }
+        export class Response extends pb_1.Message {
+            #one_of_decls: number[][] = [[1]];
+            constructor(data?: any[] | ({} & (({
+                json_schema?: string;
+            })))) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("json_schema" in data && data.json_schema != undefined) {
+                        this.json_schema = data.json_schema;
+                    }
+                }
+            }
+            get json_schema() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set json_schema(value: string) {
+                pb_1.Message.setOneofField(this, 1, this.#one_of_decls[0], value);
+            }
+            get has_json_schema() {
+                return pb_1.Message.getField(this, 1) != null;
+            }
+            get _json_schema() {
+                const cases: {
+                    [index: number]: "none" | "json_schema";
+                } = {
+                    0: "none",
+                    1: "json_schema"
+                };
+                return cases[pb_1.Message.computeOneofCase(this, [1])];
+            }
+            static fromObject(data: {
+                json_schema?: string;
+            }): Response {
+                const message = new Response({});
+                if (data.json_schema != null) {
+                    message.json_schema = data.json_schema;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    json_schema?: string;
+                } = {};
+                if (this.json_schema != null) {
+                    data.json_schema = this.json_schema;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.has_json_schema)
+                    writer.writeString(1, this.json_schema);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Response {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Response();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.json_schema = reader.readString();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Response {
+                return Response.deserialize(bytes);
+            }
+        }
+    }
     export class Init extends pb_1.Message {
         #one_of_decls: number[][] = [];
         constructor(data?: any[] | {}) {
@@ -2696,6 +2857,15 @@ export namespace cloudquery.plugin.v3 {
                 responseSerialize: (message: GetVersion.Response) => Buffer.from(message.serialize()),
                 responseDeserialize: (bytes: Buffer) => GetVersion.Response.deserialize(new Uint8Array(bytes))
             },
+            GetSpecSchema: {
+                path: "/cloudquery.plugin.v3.Plugin/GetSpecSchema",
+                requestStream: false,
+                responseStream: false,
+                requestSerialize: (message: GetSpecSchema.Request) => Buffer.from(message.serialize()),
+                requestDeserialize: (bytes: Buffer) => GetSpecSchema.Request.deserialize(new Uint8Array(bytes)),
+                responseSerialize: (message: GetSpecSchema.Response) => Buffer.from(message.serialize()),
+                responseDeserialize: (bytes: Buffer) => GetSpecSchema.Response.deserialize(new Uint8Array(bytes))
+            },
             Init: {
                 path: "/cloudquery.plugin.v3.Plugin/Init",
                 requestStream: false,
@@ -2754,6 +2924,7 @@ export namespace cloudquery.plugin.v3 {
         [method: string]: grpc_1.UntypedHandleCall;
         abstract GetName(call: grpc_1.ServerUnaryCall<GetName.Request, GetName.Response>, callback: grpc_1.sendUnaryData<GetName.Response>): void;
         abstract GetVersion(call: grpc_1.ServerUnaryCall<GetVersion.Request, GetVersion.Response>, callback: grpc_1.sendUnaryData<GetVersion.Response>): void;
+        abstract GetSpecSchema(call: grpc_1.ServerUnaryCall<GetSpecSchema.Request, GetSpecSchema.Response>, callback: grpc_1.sendUnaryData<GetSpecSchema.Response>): void;
         abstract Init(call: grpc_1.ServerUnaryCall<Init.Request, Init.Response>, callback: grpc_1.sendUnaryData<Init.Response>): void;
         abstract GetTables(call: grpc_1.ServerUnaryCall<GetTables.Request, GetTables.Response>, callback: grpc_1.sendUnaryData<GetTables.Response>): void;
         abstract Sync(call: grpc_1.ServerWritableStream<Sync.Request, Sync.Response>): void;
@@ -2770,6 +2941,9 @@ export namespace cloudquery.plugin.v3 {
         };
         GetVersion: GrpcUnaryServiceInterface<GetVersion.Request, GetVersion.Response> = (message: GetVersion.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<GetVersion.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<GetVersion.Response>, callback?: grpc_1.requestCallback<GetVersion.Response>): grpc_1.ClientUnaryCall => {
             return super.GetVersion(message, metadata, options, callback);
+        };
+        GetSpecSchema: GrpcUnaryServiceInterface<GetSpecSchema.Request, GetSpecSchema.Response> = (message: GetSpecSchema.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<GetSpecSchema.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<GetSpecSchema.Response>, callback?: grpc_1.requestCallback<GetSpecSchema.Response>): grpc_1.ClientUnaryCall => {
+            return super.GetSpecSchema(message, metadata, options, callback);
         };
         Init: GrpcUnaryServiceInterface<Init.Request, Init.Response> = (message: Init.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<Init.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<Init.Response>, callback?: grpc_1.requestCallback<Init.Response>): grpc_1.ClientUnaryCall => {
             return super.Init(message, metadata, options, callback);

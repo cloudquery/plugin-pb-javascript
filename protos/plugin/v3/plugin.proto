@@ -12,6 +12,10 @@ service Plugin {
   rpc GetName(GetName.Request) returns (GetName.Response);
   // Get the current version of the plugin
   rpc GetVersion(GetVersion.Request) returns (GetVersion.Response);
+  // Get plugin spec schema.
+  // This will allow validating the input even before calling Init.
+  // Should be called before Init.
+  rpc GetSpecSchema(GetSpecSchema.Request) returns (GetSpecSchema.Response);
   // Configure the plugin with the given credentials and mode
   rpc Init(Init.Request) returns (Init.Response);
   // Get all tables the source plugin supports. Must be called after Init
@@ -38,6 +42,15 @@ message GetVersion {
   message Request {}
   message Response {
     string version = 1;
+  }
+}
+
+message GetSpecSchema {
+  message Request {}
+  message Response {
+    // Should be a valid JSON schema for the plugin spec.
+    // See https://json-schema.org for more details.
+    optional string json_schema = 1;
   }
 }
 
