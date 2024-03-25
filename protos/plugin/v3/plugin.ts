@@ -512,6 +512,7 @@ export namespace cloudquery.plugin.v3 {
             constructor(data?: any[] | {
                 spec?: Uint8Array;
                 no_connection?: boolean;
+                invocation_id?: string;
             }) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -521,6 +522,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("no_connection" in data && data.no_connection != undefined) {
                         this.no_connection = data.no_connection;
+                    }
+                    if ("invocation_id" in data && data.invocation_id != undefined) {
+                        this.invocation_id = data.invocation_id;
                     }
                 }
             }
@@ -536,9 +540,16 @@ export namespace cloudquery.plugin.v3 {
             set no_connection(value: boolean) {
                 pb_1.Message.setField(this, 2, value);
             }
+            get invocation_id() {
+                return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+            }
+            set invocation_id(value: string) {
+                pb_1.Message.setField(this, 3, value);
+            }
             static fromObject(data: {
                 spec?: Uint8Array;
                 no_connection?: boolean;
+                invocation_id?: string;
             }): Request {
                 const message = new Request({});
                 if (data.spec != null) {
@@ -547,18 +558,25 @@ export namespace cloudquery.plugin.v3 {
                 if (data.no_connection != null) {
                     message.no_connection = data.no_connection;
                 }
+                if (data.invocation_id != null) {
+                    message.invocation_id = data.invocation_id;
+                }
                 return message;
             }
             toObject() {
                 const data: {
                     spec?: Uint8Array;
                     no_connection?: boolean;
+                    invocation_id?: string;
                 } = {};
                 if (this.spec != null) {
                     data.spec = this.spec;
                 }
                 if (this.no_connection != null) {
                     data.no_connection = this.no_connection;
+                }
+                if (this.invocation_id != null) {
+                    data.invocation_id = this.invocation_id;
                 }
                 return data;
             }
@@ -570,6 +588,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeBytes(1, this.spec);
                 if (this.no_connection != false)
                     writer.writeBool(2, this.no_connection);
+                if (this.invocation_id.length)
+                    writer.writeString(3, this.invocation_id);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -584,6 +604,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 2:
                             message.no_connection = reader.readBool();
+                            break;
+                        case 3:
+                            message.invocation_id = reader.readString();
                             break;
                         default: reader.skipField();
                     }
