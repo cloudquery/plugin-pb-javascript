@@ -58,6 +58,7 @@ message Init {
   message Request {
     bytes spec = 1; // Internal plugin-specific spec
     bool no_connection = 2; // A flag to indicate plugins should skip establishing a connection
+    string invocation_id = 3; // unique execution_id that will identify the invocation (sync, migrate etc)
   }
   message Response {}
 }
