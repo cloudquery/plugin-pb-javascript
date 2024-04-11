@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.18](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.17...v0.0.18) (2024-04-11)
+
+
+### Bug Fixes
+
+* **deps:** Bump protobufjs from 7.2.4 to 7.2.6 ([#53](https://github.com/cloudquery/plugin-pb-javascript/issues/53)) ([e411396](https://github.com/cloudquery/plugin-pb-javascript/commit/e4113961835691b4aa289893600c48bbcf3510aa))
+* **deps:** Update dependency @grpc/grpc-js to v1.10.6 ([#50](https://github.com/cloudquery/plugin-pb-javascript/issues/50)) ([5551773](https://github.com/cloudquery/plugin-pb-javascript/commit/55517731671f01e444f544c460f5e3597101e10c))
+
 ## [0.0.17](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.16...v0.0.17) (2024-04-01)
 
 
