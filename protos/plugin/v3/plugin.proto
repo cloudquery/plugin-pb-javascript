@@ -29,6 +29,8 @@ service Plugin {
   rpc Write(stream Write.Request) returns (Write.Response);
   // Send signal to flush and close open connections
   rpc Close(Close.Request) returns (Close.Response);
+  // Validate and test the connections used by the plugin
+  rpc TestConnection(TestConnection.Request) returns (TestConnection.Response);
 }
 
 message GetName {
@@ -191,4 +193,15 @@ message Write {
 message Close {
   message Request {}
   message Response {}
+}
+
+message TestConnection {
+  message Request{
+    bytes spec = 1; // Internal plugin-specific spec
+  }
+  message Response{
+    bool success = 1;
+    string failure_code = 2;
+    string failure_description = 3;
+  }
 }
