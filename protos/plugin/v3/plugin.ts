@@ -2714,6 +2714,182 @@ export namespace cloudquery.plugin.v3 {
             }
         }
     }
+    export class Transform extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {}) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") { }
+        }
+        static fromObject(data: {}): Transform {
+            const message = new Transform({});
+            return message;
+        }
+        toObject() {
+            const data: {} = {};
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Transform {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Transform();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): Transform {
+            return Transform.deserialize(bytes);
+        }
+    }
+    export namespace Transform {
+        export class Request extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                record?: Uint8Array;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("record" in data && data.record != undefined) {
+                        this.record = data.record;
+                    }
+                }
+            }
+            get record() {
+                return pb_1.Message.getFieldWithDefault(this, 1, new Uint8Array(0)) as Uint8Array;
+            }
+            set record(value: Uint8Array) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            static fromObject(data: {
+                record?: Uint8Array;
+            }): Request {
+                const message = new Request({});
+                if (data.record != null) {
+                    message.record = data.record;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    record?: Uint8Array;
+                } = {};
+                if (this.record != null) {
+                    data.record = this.record;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.record.length)
+                    writer.writeBytes(1, this.record);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Request {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Request();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.record = reader.readBytes();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Request {
+                return Request.deserialize(bytes);
+            }
+        }
+        export class Response extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                record?: Uint8Array;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("record" in data && data.record != undefined) {
+                        this.record = data.record;
+                    }
+                }
+            }
+            get record() {
+                return pb_1.Message.getFieldWithDefault(this, 1, new Uint8Array(0)) as Uint8Array;
+            }
+            set record(value: Uint8Array) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            static fromObject(data: {
+                record?: Uint8Array;
+            }): Response {
+                const message = new Response({});
+                if (data.record != null) {
+                    message.record = data.record;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    record?: Uint8Array;
+                } = {};
+                if (this.record != null) {
+                    data.record = this.record;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.record.length)
+                    writer.writeBytes(1, this.record);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Response {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Response();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.record = reader.readBytes();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Response {
+                return Response.deserialize(bytes);
+            }
+        }
+    }
     export class Close extends pb_1.Message {
         #one_of_decls: number[][] = [];
         constructor(data?: any[] | {}) {
@@ -3156,6 +3332,15 @@ export namespace cloudquery.plugin.v3 {
                 responseSerialize: (message: Write.Response) => Buffer.from(message.serialize()),
                 responseDeserialize: (bytes: Buffer) => Write.Response.deserialize(new Uint8Array(bytes))
             },
+            Transform: {
+                path: "/cloudquery.plugin.v3.Plugin/Transform",
+                requestStream: true,
+                responseStream: true,
+                requestSerialize: (message: Transform.Request) => Buffer.from(message.serialize()),
+                requestDeserialize: (bytes: Buffer) => Transform.Request.deserialize(new Uint8Array(bytes)),
+                responseSerialize: (message: Transform.Response) => Buffer.from(message.serialize()),
+                responseDeserialize: (bytes: Buffer) => Transform.Response.deserialize(new Uint8Array(bytes))
+            },
             Close: {
                 path: "/cloudquery.plugin.v3.Plugin/Close",
                 requestStream: false,
@@ -3184,6 +3369,7 @@ export namespace cloudquery.plugin.v3 {
         abstract Sync(call: grpc_1.ServerWritableStream<Sync.Request, Sync.Response>): void;
         abstract Read(call: grpc_1.ServerWritableStream<Read.Request, Read.Response>): void;
         abstract Write(call: grpc_1.ServerReadableStream<Write.Request, Write.Response>, callback: grpc_1.sendUnaryData<Write.Response>): void;
+        abstract Transform(call: grpc_1.ServerDuplexStream<Transform.Request, Transform.Response>): void;
         abstract Close(call: grpc_1.ServerUnaryCall<Close.Request, Close.Response>, callback: grpc_1.sendUnaryData<Close.Response>): void;
         abstract TestConnection(call: grpc_1.ServerUnaryCall<TestConnection.Request, TestConnection.Response>, callback: grpc_1.sendUnaryData<TestConnection.Response>): void;
     }
@@ -3214,6 +3400,9 @@ export namespace cloudquery.plugin.v3 {
         };
         Write: GrpWritableServiceInterface<Write.Request, Write.Response> = (metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<Write.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<Write.Response>, callback?: grpc_1.requestCallback<Write.Response>): grpc_1.ClientWritableStream<Write.Request> => {
             return super.Write(metadata, options, callback);
+        };
+        Transform: GrpcChunkServiceInterface<Transform.Request, Transform.Response> = (metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientDuplexStream<Transform.Request, Transform.Response> => {
+            return super.Transform(metadata, options);
         };
         Close: GrpcUnaryServiceInterface<Close.Request, Close.Response> = (message: Close.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<Close.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<Close.Response>, callback?: grpc_1.requestCallback<Close.Response>): grpc_1.ClientUnaryCall => {
             return super.Close(message, metadata, options, callback);
