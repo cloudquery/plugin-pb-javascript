@@ -27,6 +27,8 @@ service Plugin {
   rpc Read(Read.Request) returns (stream Read.Response);
   // Write resources. Write is the mirror of Sync, expecting a stream of messages as input.
   rpc Write(stream Write.Request) returns (Write.Response);
+  // Transform resources.
+  rpc Transform(stream Transform.Request) returns (stream Transform.Response);
   // Send signal to flush and close open connections
   rpc Close(Close.Request) returns (Close.Response);
   // Validate and test the connections used by the plugin
@@ -188,6 +190,17 @@ message Write {
     }
   }
   message Response {}
+}
+
+message Transform {
+  message Request {
+    // marshalled arrow.Record
+    bytes record = 1;
+  }
+  message Response {
+    // marshalled arrow.Record
+    bytes record = 1;
+  }
 }
 
 message Close {
