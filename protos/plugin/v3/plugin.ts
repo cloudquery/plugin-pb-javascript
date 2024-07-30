@@ -3519,8 +3519,8 @@ export namespace cloudquery.plugin.v3 {
             },
             TransformSchema: {
                 path: "/cloudquery.plugin.v3.Plugin/TransformSchema",
-                requestStream: true,
-                responseStream: true,
+                requestStream: false,
+                responseStream: false,
                 requestSerialize: (message: TransformSchema.Request) => Buffer.from(message.serialize()),
                 requestDeserialize: (bytes: Buffer) => TransformSchema.Request.deserialize(new Uint8Array(bytes)),
                 responseSerialize: (message: TransformSchema.Response) => Buffer.from(message.serialize()),
@@ -3555,7 +3555,7 @@ export namespace cloudquery.plugin.v3 {
         abstract Read(call: grpc_1.ServerWritableStream<Read.Request, Read.Response>): void;
         abstract Write(call: grpc_1.ServerReadableStream<Write.Request, Write.Response>, callback: grpc_1.sendUnaryData<Write.Response>): void;
         abstract Transform(call: grpc_1.ServerDuplexStream<Transform.Request, Transform.Response>): void;
-        abstract TransformSchema(call: grpc_1.ServerDuplexStream<TransformSchema.Request, TransformSchema.Response>): void;
+        abstract TransformSchema(call: grpc_1.ServerUnaryCall<TransformSchema.Request, TransformSchema.Response>, callback: grpc_1.sendUnaryData<TransformSchema.Response>): void;
         abstract Close(call: grpc_1.ServerUnaryCall<Close.Request, Close.Response>, callback: grpc_1.sendUnaryData<Close.Response>): void;
         abstract TestConnection(call: grpc_1.ServerUnaryCall<TestConnection.Request, TestConnection.Response>, callback: grpc_1.sendUnaryData<TestConnection.Response>): void;
     }
@@ -3590,8 +3590,8 @@ export namespace cloudquery.plugin.v3 {
         Transform: GrpcChunkServiceInterface<Transform.Request, Transform.Response> = (metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientDuplexStream<Transform.Request, Transform.Response> => {
             return super.Transform(metadata, options);
         };
-        TransformSchema: GrpcChunkServiceInterface<TransformSchema.Request, TransformSchema.Response> = (metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientDuplexStream<TransformSchema.Request, TransformSchema.Response> => {
-            return super.TransformSchema(metadata, options);
+        TransformSchema: GrpcUnaryServiceInterface<TransformSchema.Request, TransformSchema.Response> = (message: TransformSchema.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<TransformSchema.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<TransformSchema.Response>, callback?: grpc_1.requestCallback<TransformSchema.Response>): grpc_1.ClientUnaryCall => {
+            return super.TransformSchema(message, metadata, options, callback);
         };
         Close: GrpcUnaryServiceInterface<Close.Request, Close.Response> = (message: Close.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<Close.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<Close.Response>, callback?: grpc_1.requestCallback<Close.Response>): grpc_1.ClientUnaryCall => {
             return super.Close(message, metadata, options, callback);

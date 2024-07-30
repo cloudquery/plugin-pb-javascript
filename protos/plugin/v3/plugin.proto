@@ -30,7 +30,7 @@ service Plugin {
   // Transform resources.
   rpc Transform(stream Transform.Request) returns (stream Transform.Response);
   // Transform schemas.
-  rpc TransformSchema(stream TransformSchema.Request) returns (stream TransformSchema.Response);
+  rpc TransformSchema(TransformSchema.Request) returns (TransformSchema.Response);
   // Send signal to flush and close open connections
   rpc Close(Close.Request) returns (Close.Response);
   // Validate and test the connections used by the plugin
