@@ -29,6 +29,8 @@ service Plugin {
   rpc Write(stream Write.Request) returns (Write.Response);
   // Transform resources.
   rpc Transform(stream Transform.Request) returns (stream Transform.Response);
+  // Transform schemas.
+  rpc TransformSchema(stream TransformSchema.Request) returns (stream TransformSchema.Response);
   // Send signal to flush and close open connections
   rpc Close(Close.Request) returns (Close.Response);
   // Validate and test the connections used by the plugin
@@ -200,6 +202,17 @@ message Transform {
   message Response {
     // marshalled arrow.Record
     bytes record = 1;
+  }
+}
+
+message TransformSchema {
+  message Request {
+    // marshalled arrow.Schema
+    bytes schema = 1;
+  }
+  message Response {
+    // marshalled arrow.Schema
+    bytes schema = 1;
   }
 }
 
