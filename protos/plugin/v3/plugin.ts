@@ -1262,14 +1262,16 @@ export namespace cloudquery.plugin.v3 {
             }
         }
         export class Request extends pb_1.Message {
-            #one_of_decls: number[][] = [];
-            constructor(data?: any[] | {
+            #one_of_decls: number[][] = [[6]];
+            constructor(data?: any[] | ({
                 tables?: string[];
                 skip_tables?: string[];
                 skip_dependent_tables?: boolean;
                 deterministic_cq_id?: boolean;
                 backend?: Sync.BackendOptions;
-            }) {
+            } & (({
+                shard?: Sync.Request.Shard;
+            })))) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1, 2], this.#one_of_decls);
                 if (!Array.isArray(data) && typeof data == "object") {
@@ -1287,6 +1289,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("backend" in data && data.backend != undefined) {
                         this.backend = data.backend;
+                    }
+                    if ("shard" in data && data.shard != undefined) {
+                        this.shard = data.shard;
                     }
                 }
             }
@@ -1323,12 +1328,31 @@ export namespace cloudquery.plugin.v3 {
             get has_backend() {
                 return pb_1.Message.getField(this, 5) != null;
             }
+            get shard() {
+                return pb_1.Message.getWrapperField(this, Sync.Request.Shard, 6) as Sync.Request.Shard;
+            }
+            set shard(value: Sync.Request.Shard) {
+                pb_1.Message.setOneofWrapperField(this, 6, this.#one_of_decls[0], value);
+            }
+            get has_shard() {
+                return pb_1.Message.getField(this, 6) != null;
+            }
+            get _shard() {
+                const cases: {
+                    [index: number]: "none" | "shard";
+                } = {
+                    0: "none",
+                    6: "shard"
+                };
+                return cases[pb_1.Message.computeOneofCase(this, [6])];
+            }
             static fromObject(data: {
                 tables?: string[];
                 skip_tables?: string[];
                 skip_dependent_tables?: boolean;
                 deterministic_cq_id?: boolean;
                 backend?: ReturnType<typeof Sync.BackendOptions.prototype.toObject>;
+                shard?: ReturnType<typeof Sync.Request.Shard.prototype.toObject>;
             }): Request {
                 const message = new Request({});
                 if (data.tables != null) {
@@ -1346,6 +1370,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.backend != null) {
                     message.backend = Sync.BackendOptions.fromObject(data.backend);
                 }
+                if (data.shard != null) {
+                    message.shard = Sync.Request.Shard.fromObject(data.shard);
+                }
                 return message;
             }
             toObject() {
@@ -1355,6 +1382,7 @@ export namespace cloudquery.plugin.v3 {
                     skip_dependent_tables?: boolean;
                     deterministic_cq_id?: boolean;
                     backend?: ReturnType<typeof Sync.BackendOptions.prototype.toObject>;
+                    shard?: ReturnType<typeof Sync.Request.Shard.prototype.toObject>;
                 } = {};
                 if (this.tables != null) {
                     data.tables = this.tables;
@@ -1370,6 +1398,9 @@ export namespace cloudquery.plugin.v3 {
                 }
                 if (this.backend != null) {
                     data.backend = this.backend.toObject();
+                }
+                if (this.shard != null) {
+                    data.shard = this.shard.toObject();
                 }
                 return data;
             }
@@ -1387,6 +1418,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeBool(4, this.deterministic_cq_id);
                 if (this.has_backend)
                     writer.writeMessage(5, this.backend, () => this.backend.serialize(writer));
+                if (this.has_shard)
+                    writer.writeMessage(6, this.shard, () => this.shard.serialize(writer));
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1411,6 +1444,9 @@ export namespace cloudquery.plugin.v3 {
                         case 5:
                             reader.readMessage(message.backend, () => message.backend = Sync.BackendOptions.deserialize(reader));
                             break;
+                        case 6:
+                            reader.readMessage(message.shard, () => message.shard = Sync.Request.Shard.deserialize(reader));
+                            break;
                         default: reader.skipField();
                     }
                 }
@@ -1421,6 +1457,98 @@ export namespace cloudquery.plugin.v3 {
             }
             static deserializeBinary(bytes: Uint8Array): Request {
                 return Request.deserialize(bytes);
+            }
+        }
+        export namespace Request {
+            export class Shard extends pb_1.Message {
+                #one_of_decls: number[][] = [];
+                constructor(data?: any[] | {
+                    num?: number;
+                    total?: number;
+                }) {
+                    super();
+                    pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                    if (!Array.isArray(data) && typeof data == "object") {
+                        if ("num" in data && data.num != undefined) {
+                            this.num = data.num;
+                        }
+                        if ("total" in data && data.total != undefined) {
+                            this.total = data.total;
+                        }
+                    }
+                }
+                get num() {
+                    return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+                }
+                set num(value: number) {
+                    pb_1.Message.setField(this, 1, value);
+                }
+                get total() {
+                    return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+                }
+                set total(value: number) {
+                    pb_1.Message.setField(this, 2, value);
+                }
+                static fromObject(data: {
+                    num?: number;
+                    total?: number;
+                }): Shard {
+                    const message = new Shard({});
+                    if (data.num != null) {
+                        message.num = data.num;
+                    }
+                    if (data.total != null) {
+                        message.total = data.total;
+                    }
+                    return message;
+                }
+                toObject() {
+                    const data: {
+                        num?: number;
+                        total?: number;
+                    } = {};
+                    if (this.num != null) {
+                        data.num = this.num;
+                    }
+                    if (this.total != null) {
+                        data.total = this.total;
+                    }
+                    return data;
+                }
+                serialize(): Uint8Array;
+                serialize(w: pb_1.BinaryWriter): void;
+                serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                    const writer = w || new pb_1.BinaryWriter();
+                    if (this.num != 0)
+                        writer.writeInt32(1, this.num);
+                    if (this.total != 0)
+                        writer.writeInt32(2, this.total);
+                    if (!w)
+                        return writer.getResultBuffer();
+                }
+                static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Shard {
+                    const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Shard();
+                    while (reader.nextField()) {
+                        if (reader.isEndGroup())
+                            break;
+                        switch (reader.getFieldNumber()) {
+                            case 1:
+                                message.num = reader.readInt32();
+                                break;
+                            case 2:
+                                message.total = reader.readInt32();
+                                break;
+                            default: reader.skipField();
+                        }
+                    }
+                    return message;
+                }
+                serializeBinary(): Uint8Array {
+                    return this.serialize();
+                }
+                static deserializeBinary(bytes: Uint8Array): Shard {
+                    return Shard.deserialize(bytes);
+                }
             }
         }
         export class Response extends pb_1.Message {

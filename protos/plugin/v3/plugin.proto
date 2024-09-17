@@ -103,11 +103,16 @@ message Sync {
     string connection = 2;
   }
   message Request {
+    message Shard {
+      int32 num = 1;
+      int32 total = 2;
+    }
     repeated string tables = 1;
     repeated string skip_tables = 2;
     bool skip_dependent_tables = 3;
     bool deterministic_cq_id = 4;
     BackendOptions backend = 5;
+    optional Shard shard = 6;
   }
   message Response {
     oneof message {
