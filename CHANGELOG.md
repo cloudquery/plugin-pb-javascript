@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.28](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.27...v0.0.28) (2024-11-01)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency @grpc/grpc-js to v1.12.2 ([#81](https://github.com/cloudquery/plugin-pb-javascript/issues/81)) ([0a5334f](https://github.com/cloudquery/plugin-pb-javascript/commit/0a5334fc090f5eb86170e6ffe0a0469c7453de2b))
+* **deps:** Update dependency typescript to v5.6.3 ([#80](https://github.com/cloudquery/plugin-pb-javascript/issues/80)) ([43669f4](https://github.com/cloudquery/plugin-pb-javascript/commit/43669f43263012360d06d06d3db3ef720f90dc1a))
+
 ## [0.0.27](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.26...v0.0.27) (2024-10-01)
 
 
