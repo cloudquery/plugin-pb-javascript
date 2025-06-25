@@ -1171,6 +1171,96 @@ export namespace cloudquery.plugin.v3 {
                 return MessageDeleteRecord.deserialize(bytes);
             }
         }
+        export class MessageError extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                table_name?: string;
+                error?: string;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("table_name" in data && data.table_name != undefined) {
+                        this.table_name = data.table_name;
+                    }
+                    if ("error" in data && data.error != undefined) {
+                        this.error = data.error;
+                    }
+                }
+            }
+            get table_name() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set table_name(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get error() {
+                return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+            }
+            set error(value: string) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            static fromObject(data: {
+                table_name?: string;
+                error?: string;
+            }): MessageError {
+                const message = new MessageError({});
+                if (data.table_name != null) {
+                    message.table_name = data.table_name;
+                }
+                if (data.error != null) {
+                    message.error = data.error;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    table_name?: string;
+                    error?: string;
+                } = {};
+                if (this.table_name != null) {
+                    data.table_name = this.table_name;
+                }
+                if (this.error != null) {
+                    data.error = this.error;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.table_name.length)
+                    writer.writeString(1, this.table_name);
+                if (this.error.length)
+                    writer.writeString(2, this.error);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MessageError {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MessageError();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.table_name = reader.readString();
+                            break;
+                        case 2:
+                            message.error = reader.readString();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): MessageError {
+                return MessageError.deserialize(bytes);
+            }
+        }
         export class BackendOptions extends pb_1.Message {
             #one_of_decls: number[][] = [];
             constructor(data?: any[] | {
@@ -1552,19 +1642,27 @@ export namespace cloudquery.plugin.v3 {
             }
         }
         export class Response extends pb_1.Message {
-            #one_of_decls: number[][] = [[1, 2, 3]];
+            #one_of_decls: number[][] = [[1, 2, 3, 4]];
             constructor(data?: any[] | ({} & (({
                 migrate_table?: Sync.MessageMigrateTable;
                 insert?: never;
                 delete_record?: never;
+                error?: never;
             } | {
                 migrate_table?: never;
                 insert?: Sync.MessageInsert;
                 delete_record?: never;
+                error?: never;
             } | {
                 migrate_table?: never;
                 insert?: never;
                 delete_record?: Sync.MessageDeleteRecord;
+                error?: never;
+            } | {
+                migrate_table?: never;
+                insert?: never;
+                delete_record?: never;
+                error?: Sync.MessageError;
             })))) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -1577,6 +1675,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("delete_record" in data && data.delete_record != undefined) {
                         this.delete_record = data.delete_record;
+                    }
+                    if ("error" in data && data.error != undefined) {
+                        this.error = data.error;
                     }
                 }
             }
@@ -1607,21 +1708,32 @@ export namespace cloudquery.plugin.v3 {
             get has_delete_record() {
                 return pb_1.Message.getField(this, 3) != null;
             }
+            get error() {
+                return pb_1.Message.getWrapperField(this, Sync.MessageError, 4) as Sync.MessageError;
+            }
+            set error(value: Sync.MessageError) {
+                pb_1.Message.setOneofWrapperField(this, 4, this.#one_of_decls[0], value);
+            }
+            get has_error() {
+                return pb_1.Message.getField(this, 4) != null;
+            }
             get message() {
                 const cases: {
-                    [index: number]: "none" | "migrate_table" | "insert" | "delete_record";
+                    [index: number]: "none" | "migrate_table" | "insert" | "delete_record" | "error";
                 } = {
                     0: "none",
                     1: "migrate_table",
                     2: "insert",
-                    3: "delete_record"
+                    3: "delete_record",
+                    4: "error"
                 };
-                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3])];
+                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3, 4])];
             }
             static fromObject(data: {
                 migrate_table?: ReturnType<typeof Sync.MessageMigrateTable.prototype.toObject>;
                 insert?: ReturnType<typeof Sync.MessageInsert.prototype.toObject>;
                 delete_record?: ReturnType<typeof Sync.MessageDeleteRecord.prototype.toObject>;
+                error?: ReturnType<typeof Sync.MessageError.prototype.toObject>;
             }): Response {
                 const message = new Response({});
                 if (data.migrate_table != null) {
@@ -1633,6 +1745,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.delete_record != null) {
                     message.delete_record = Sync.MessageDeleteRecord.fromObject(data.delete_record);
                 }
+                if (data.error != null) {
+                    message.error = Sync.MessageError.fromObject(data.error);
+                }
                 return message;
             }
             toObject() {
@@ -1640,6 +1755,7 @@ export namespace cloudquery.plugin.v3 {
                     migrate_table?: ReturnType<typeof Sync.MessageMigrateTable.prototype.toObject>;
                     insert?: ReturnType<typeof Sync.MessageInsert.prototype.toObject>;
                     delete_record?: ReturnType<typeof Sync.MessageDeleteRecord.prototype.toObject>;
+                    error?: ReturnType<typeof Sync.MessageError.prototype.toObject>;
                 } = {};
                 if (this.migrate_table != null) {
                     data.migrate_table = this.migrate_table.toObject();
@@ -1649,6 +1765,9 @@ export namespace cloudquery.plugin.v3 {
                 }
                 if (this.delete_record != null) {
                     data.delete_record = this.delete_record.toObject();
+                }
+                if (this.error != null) {
+                    data.error = this.error.toObject();
                 }
                 return data;
             }
@@ -1662,6 +1781,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(2, this.insert, () => this.insert.serialize(writer));
                 if (this.has_delete_record)
                     writer.writeMessage(3, this.delete_record, () => this.delete_record.serialize(writer));
+                if (this.has_error)
+                    writer.writeMessage(4, this.error, () => this.error.serialize(writer));
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1679,6 +1800,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 3:
                             reader.readMessage(message.delete_record, () => message.delete_record = Sync.MessageDeleteRecord.deserialize(reader));
+                            break;
+                        case 4:
+                            reader.readMessage(message.error, () => message.error = Sync.MessageError.deserialize(reader));
                             break;
                         default: reader.skipField();
                     }
