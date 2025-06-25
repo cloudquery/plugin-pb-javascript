@@ -95,6 +95,11 @@ message Sync {
     repeated PredicatesGroup where_clause = 2;
     repeated TableRelation table_relations = 3;
   }
+  message MessageError {
+    string table_name = 1;
+    string error = 2;
+  }
+
 
   message BackendOptions {
     // table name to use for state backend
@@ -119,6 +124,7 @@ message Sync {
       Sync.MessageMigrateTable migrate_table = 1;
       Sync.MessageInsert insert = 2;
       Sync.MessageDeleteRecord delete_record = 3;
+      Sync.MessageError error = 4;
     }
   }
 }
