@@ -118,6 +118,7 @@ message Sync {
     bool deterministic_cq_id = 4;
     BackendOptions backend = 5;
     optional Shard shard = 6;
+    bool withErrorMessages = 7; // If true, the plugin will send error messages in the response stream
   }
   message Response {
     oneof message {

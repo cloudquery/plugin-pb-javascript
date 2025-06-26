@@ -1359,6 +1359,7 @@ export namespace cloudquery.plugin.v3 {
                 skip_dependent_tables?: boolean;
                 deterministic_cq_id?: boolean;
                 backend?: Sync.BackendOptions;
+                withErrorMessages?: boolean;
             } & (({
                 shard?: Sync.Request.Shard;
             })))) {
@@ -1382,6 +1383,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("shard" in data && data.shard != undefined) {
                         this.shard = data.shard;
+                    }
+                    if ("withErrorMessages" in data && data.withErrorMessages != undefined) {
+                        this.withErrorMessages = data.withErrorMessages;
                     }
                 }
             }
@@ -1427,6 +1431,12 @@ export namespace cloudquery.plugin.v3 {
             get has_shard() {
                 return pb_1.Message.getField(this, 6) != null;
             }
+            get withErrorMessages() {
+                return pb_1.Message.getFieldWithDefault(this, 7, false) as boolean;
+            }
+            set withErrorMessages(value: boolean) {
+                pb_1.Message.setField(this, 7, value);
+            }
             get _shard() {
                 const cases: {
                     [index: number]: "none" | "shard";
@@ -1443,6 +1453,7 @@ export namespace cloudquery.plugin.v3 {
                 deterministic_cq_id?: boolean;
                 backend?: ReturnType<typeof Sync.BackendOptions.prototype.toObject>;
                 shard?: ReturnType<typeof Sync.Request.Shard.prototype.toObject>;
+                withErrorMessages?: boolean;
             }): Request {
                 const message = new Request({});
                 if (data.tables != null) {
@@ -1463,6 +1474,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.shard != null) {
                     message.shard = Sync.Request.Shard.fromObject(data.shard);
                 }
+                if (data.withErrorMessages != null) {
+                    message.withErrorMessages = data.withErrorMessages;
+                }
                 return message;
             }
             toObject() {
@@ -1473,6 +1487,7 @@ export namespace cloudquery.plugin.v3 {
                     deterministic_cq_id?: boolean;
                     backend?: ReturnType<typeof Sync.BackendOptions.prototype.toObject>;
                     shard?: ReturnType<typeof Sync.Request.Shard.prototype.toObject>;
+                    withErrorMessages?: boolean;
                 } = {};
                 if (this.tables != null) {
                     data.tables = this.tables;
@@ -1492,6 +1507,9 @@ export namespace cloudquery.plugin.v3 {
                 if (this.shard != null) {
                     data.shard = this.shard.toObject();
                 }
+                if (this.withErrorMessages != null) {
+                    data.withErrorMessages = this.withErrorMessages;
+                }
                 return data;
             }
             serialize(): Uint8Array;
@@ -1510,6 +1528,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(5, this.backend, () => this.backend.serialize(writer));
                 if (this.has_shard)
                     writer.writeMessage(6, this.shard, () => this.shard.serialize(writer));
+                if (this.withErrorMessages != false)
+                    writer.writeBool(7, this.withErrorMessages);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1536,6 +1556,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 6:
                             reader.readMessage(message.shard, () => message.shard = Sync.Request.Shard.deserialize(reader));
+                            break;
+                        case 7:
+                            message.withErrorMessages = reader.readBool();
                             break;
                         default: reader.skipField();
                     }
