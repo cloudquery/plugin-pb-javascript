@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.37](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.36...v0.0.37) (2025-09-01)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency typescript to v5.9.2 ([#105](https://github.com/cloudquery/plugin-pb-javascript/issues/105)) ([0d066d7](https://github.com/cloudquery/plugin-pb-javascript/commit/0d066d75fde046ddcb50b936461e0f2792f20bb4))
+
 ## [0.0.36](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.35...v0.0.36) (2025-07-01)
 
 
