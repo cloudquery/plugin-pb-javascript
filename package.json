@@ -47,6 +47,6 @@
   },
   "main": "dist/index.js",
   "dependencies": {
-    "google-protobuf": "^3.21.2"
+    "google-protobuf": "^4.0.0"
   }
 }
