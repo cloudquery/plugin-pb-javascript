@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.39](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.38...v0.0.39) (2025-11-03)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency @tsconfig/node16 to v16.1.6 ([#115](https://github.com/cloudquery/plugin-pb-javascript/issues/115)) ([5429d7a](https://github.com/cloudquery/plugin-pb-javascript/commit/5429d7a151f3bc077a6b7996559cd75b299a5778))
+* **deps:** Update dependency typescript to v5.9.3 ([#116](https://github.com/cloudquery/plugin-pb-javascript/issues/116)) ([5940054](https://github.com/cloudquery/plugin-pb-javascript/commit/5940054f8e3ee361734983b438977181dc959afa))
+
 ## [0.0.38](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.37...v0.0.38) (2025-09-29)
 
 
