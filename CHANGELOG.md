@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.39](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.38...v0.0.39) (2025-12-02)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency @grpc/grpc-js to v1.14.1 ([#120](https://github.com/cloudquery/plugin-pb-javascript/issues/120)) ([276b2c9](https://github.com/cloudquery/plugin-pb-javascript/commit/276b2c9244e67f1760d34e47c8e8db046de0c435))
+* **deps:** Update dependency @tsconfig/node16 to v16.1.6 ([#115](https://github.com/cloudquery/plugin-pb-javascript/issues/115)) ([5429d7a](https://github.com/cloudquery/plugin-pb-javascript/commit/5429d7a151f3bc077a6b7996559cd75b299a5778))
+* **deps:** Update dependency @tsconfig/node16 to v16.1.8 ([#121](https://github.com/cloudquery/plugin-pb-javascript/issues/121)) ([243c4da](https://github.com/cloudquery/plugin-pb-javascript/commit/243c4da6a5892c0a4a75df41f69486d547f74121))
+* **deps:** Update dependency google-protobuf to v4.0.1 ([#122](https://github.com/cloudquery/plugin-pb-javascript/issues/122)) ([dda4f8c](https://github.com/cloudquery/plugin-pb-javascript/commit/dda4f8cda6f1907c341cef1c473870fdade4fc18))
+* **deps:** Update dependency typescript to v5.9.3 ([#116](https://github.com/cloudquery/plugin-pb-javascript/issues/116)) ([5940054](https://github.com/cloudquery/plugin-pb-javascript/commit/5940054f8e3ee361734983b438977181dc959afa))
+
 ## [0.0.38](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.37...v0.0.38) (2025-09-29)
 
 
