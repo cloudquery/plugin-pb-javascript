@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.40](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.39...v0.0.40) (2026-02-26)
+
+
+### Bug Fixes
+
+* Bump tar from 7.5.2 to 7.5.9 ([ba7b9b5](https://github.com/cloudquery/plugin-pb-javascript/commit/ba7b9b5abfdaf42dede86a6782f350f5e8bb9662))
+
 ## [0.0.39](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.38...v0.0.39) (2026-01-02)
 
 
