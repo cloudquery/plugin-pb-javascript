@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.42](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.41...v0.0.42) (2026-05-01)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency typescript to v6.0.3 ([#147](https://github.com/cloudquery/plugin-pb-javascript/issues/147)) ([d31efc7](https://github.com/cloudquery/plugin-pb-javascript/commit/d31efc7a24c4deb19a654997f56484152a765063))
+* **deps:** Update pnpm to v10.33.2 ([#148](https://github.com/cloudquery/plugin-pb-javascript/issues/148)) ([bc65277](https://github.com/cloudquery/plugin-pb-javascript/commit/bc652774dc16f89ec3bb54f71fb73b3d535ad62f))
+
 ## [0.0.41](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.40...v0.0.41) (2026-04-01)
 
 
