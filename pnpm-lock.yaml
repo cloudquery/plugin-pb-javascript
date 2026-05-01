@@ -15,9 +15,9 @@ importers:
       '@grpc/grpc-js':
         specifier: ^1.9.0
         version: 1.14.3
-      '@tsconfig/node18':
-        specifier: ^18.2.0
-        version: 18.2.6
+      '@tsconfig/node20':
+        specifier: ^20.1.0
+        version: 20.1.9
       '@types/google-protobuf':
         specifier: ^3.15.6
         version: 3.15.12
@@ -84,8 +84,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@tsconfig/node18@18.2.6':
-    resolution: {integrity: sha512-eAWQzAjPj18tKnDzmWstz4OyWewLUNBm9tdoN9LayzoboRktYx3Enk1ZXPmThj55L7c4VWYq/Bzq0A51znZfhw==}
+  '@tsconfig/node20@20.1.9':
+    resolution: {integrity: sha512-IjlTv1RsvnPtUcjTqtVsZExKVq+KQx4g5pCP5tI7rAs6Xesl2qFwSz/tPDBC4JajkL/MlezBu3gPUwqRHl+RIg==}
 
   '@types/google-protobuf@3.15.12':
     resolution: {integrity: sha512-40um9QqwHjRS92qnOaDpL7RmDK15NuZYo9HihiJRbYkMQZlWnuH8AdvbMy8/o6lgLmKbDUKa+OALCltHdbOTpQ==}
@@ -320,7 +320,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@tsconfig/node18@18.2.6': {}
+  '@tsconfig/node20@20.1.9': {}
 
   '@types/google-protobuf@3.15.12': {}
 
