@@ -1,1 +1,4 @@
 minimumReleaseAge: 10080 # 7 days
+allowBuilds:
+  grpc-tools: true
+  protobufjs: true
