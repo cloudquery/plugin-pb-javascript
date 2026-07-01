@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.42](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.41...v0.0.42) (2026-07-01)
+
+
+### Bug Fixes
+
+* **deps:** Update dependency @grpc/grpc-js to v1.14.4 ([#154](https://github.com/cloudquery/plugin-pb-javascript/issues/154)) ([643ef50](https://github.com/cloudquery/plugin-pb-javascript/commit/643ef508e63f0226260f154be7960150e7a68455))
+* **deps:** Update dependency typescript to v6.0.3 ([#147](https://github.com/cloudquery/plugin-pb-javascript/issues/147)) ([d31efc7](https://github.com/cloudquery/plugin-pb-javascript/commit/d31efc7a24c4deb19a654997f56484152a765063))
+* **deps:** Update pnpm to v10.33.2 ([#148](https://github.com/cloudquery/plugin-pb-javascript/issues/148)) ([bc65277](https://github.com/cloudquery/plugin-pb-javascript/commit/bc652774dc16f89ec3bb54f71fb73b3d535ad62f))
+* **deps:** Update pnpm to v10.33.4 ([#155](https://github.com/cloudquery/plugin-pb-javascript/issues/155)) ([a1d4314](https://github.com/cloudquery/plugin-pb-javascript/commit/a1d4314fb6d8ccd25053a1a497922973b1d41e15))
+* **deps:** Update pnpm to v11 ([#156](https://github.com/cloudquery/plugin-pb-javascript/issues/156)) ([c62f28e](https://github.com/cloudquery/plugin-pb-javascript/commit/c62f28e6fb46d87b15a6a11641c09bb56606ebd8))
+* **deps:** Update pnpm to v11.9.0 ([#159](https://github.com/cloudquery/plugin-pb-javascript/issues/159)) ([917bdf7](https://github.com/cloudquery/plugin-pb-javascript/commit/917bdf769d157969e279d97927243c581bce95a6))
+
 ## [0.0.41](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.40...v0.0.41) (2026-04-01)
 
 
