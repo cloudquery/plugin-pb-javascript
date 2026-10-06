@@ -4151,8 +4151,7 @@ export namespace cloudquery.plugin.v3 {
                 forced_mode_behavior?: string;
                 columns?: AssessTables.ColumnFinding[];
                 evidence?: AssessTables.Evidence[];
-                coverage_incomplete?: boolean;
-                coverage_incomplete_reason?: string;
+                incomplete_coverage_reason?: string;
             }) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [5, 6], this.#one_of_decls);
@@ -4175,11 +4174,8 @@ export namespace cloudquery.plugin.v3 {
                     if ("evidence" in data && data.evidence != undefined) {
                         this.evidence = data.evidence;
                     }
-                    if ("coverage_incomplete" in data && data.coverage_incomplete != undefined) {
-                        this.coverage_incomplete = data.coverage_incomplete;
-                    }
-                    if ("coverage_incomplete_reason" in data && data.coverage_incomplete_reason != undefined) {
-                        this.coverage_incomplete_reason = data.coverage_incomplete_reason;
+                    if ("incomplete_coverage_reason" in data && data.incomplete_coverage_reason != undefined) {
+                        this.incomplete_coverage_reason = data.incomplete_coverage_reason;
                     }
                 }
             }
@@ -4219,17 +4215,11 @@ export namespace cloudquery.plugin.v3 {
             set evidence(value: AssessTables.Evidence[]) {
                 pb_1.Message.setRepeatedWrapperField(this, 6, value);
             }
-            get coverage_incomplete() {
-                return pb_1.Message.getFieldWithDefault(this, 7, false) as boolean;
+            get incomplete_coverage_reason() {
+                return pb_1.Message.getFieldWithDefault(this, 7, "") as string;
             }
-            set coverage_incomplete(value: boolean) {
+            set incomplete_coverage_reason(value: string) {
                 pb_1.Message.setField(this, 7, value);
-            }
-            get coverage_incomplete_reason() {
-                return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
-            }
-            set coverage_incomplete_reason(value: string) {
-                pb_1.Message.setField(this, 8, value);
             }
             static fromObject(data: {
                 table_name?: string;
@@ -4238,8 +4228,7 @@ export namespace cloudquery.plugin.v3 {
                 forced_mode_behavior?: string;
                 columns?: ReturnType<typeof AssessTables.ColumnFinding.prototype.toObject>[];
                 evidence?: ReturnType<typeof AssessTables.Evidence.prototype.toObject>[];
-                coverage_incomplete?: boolean;
-                coverage_incomplete_reason?: string;
+                incomplete_coverage_reason?: string;
             }): TableFinding {
                 const message = new TableFinding({});
                 if (data.table_name != null) {
@@ -4260,11 +4249,8 @@ export namespace cloudquery.plugin.v3 {
                 if (data.evidence != null) {
                     message.evidence = data.evidence.map(item => AssessTables.Evidence.fromObject(item));
                 }
-                if (data.coverage_incomplete != null) {
-                    message.coverage_incomplete = data.coverage_incomplete;
-                }
-                if (data.coverage_incomplete_reason != null) {
-                    message.coverage_incomplete_reason = data.coverage_incomplete_reason;
+                if (data.incomplete_coverage_reason != null) {
+                    message.incomplete_coverage_reason = data.incomplete_coverage_reason;
                 }
                 return message;
             }
@@ -4276,8 +4262,7 @@ export namespace cloudquery.plugin.v3 {
                     forced_mode_behavior?: string;
                     columns?: ReturnType<typeof AssessTables.ColumnFinding.prototype.toObject>[];
                     evidence?: ReturnType<typeof AssessTables.Evidence.prototype.toObject>[];
-                    coverage_incomplete?: boolean;
-                    coverage_incomplete_reason?: string;
+                    incomplete_coverage_reason?: string;
                 } = {};
                 if (this.table_name != null) {
                     data.table_name = this.table_name;
@@ -4297,11 +4282,8 @@ export namespace cloudquery.plugin.v3 {
                 if (this.evidence != null) {
                     data.evidence = this.evidence.map((item: AssessTables.Evidence) => item.toObject());
                 }
-                if (this.coverage_incomplete != null) {
-                    data.coverage_incomplete = this.coverage_incomplete;
-                }
-                if (this.coverage_incomplete_reason != null) {
-                    data.coverage_incomplete_reason = this.coverage_incomplete_reason;
+                if (this.incomplete_coverage_reason != null) {
+                    data.incomplete_coverage_reason = this.incomplete_coverage_reason;
                 }
                 return data;
             }
@@ -4321,10 +4303,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeRepeatedMessage(5, this.columns, (item: AssessTables.ColumnFinding) => item.serialize(writer));
                 if (this.evidence.length)
                     writer.writeRepeatedMessage(6, this.evidence, (item: AssessTables.Evidence) => item.serialize(writer));
-                if (this.coverage_incomplete != false)
-                    writer.writeBool(7, this.coverage_incomplete);
-                if (this.coverage_incomplete_reason.length)
-                    writer.writeString(8, this.coverage_incomplete_reason);
+                if (this.incomplete_coverage_reason.length)
+                    writer.writeString(7, this.incomplete_coverage_reason);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -4353,10 +4333,7 @@ export namespace cloudquery.plugin.v3 {
                             reader.readMessage(message.evidence, () => pb_1.Message.addToRepeatedWrapperField(message, 6, AssessTables.Evidence.deserialize(reader), AssessTables.Evidence));
                             break;
                         case 7:
-                            message.coverage_incomplete = reader.readBool();
-                            break;
-                        case 8:
-                            message.coverage_incomplete_reason = reader.readString();
+                            message.incomplete_coverage_reason = reader.readString();
                             break;
                         default: reader.skipField();
                     }

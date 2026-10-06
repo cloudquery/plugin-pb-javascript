@@ -248,6 +248,7 @@ message TestConnection {
 }
 
 message AssessTables {
+  // TABLE_REMOVED applies to tables only, all other values apply to tables and columns
   enum Category {
     CATEGORY_UNKNOWN = 0;
     CATEGORY_NO_CHANGE = 1;
@@ -268,6 +269,7 @@ message AssessTables {
     string before = 2;
     string after = 3;
   }
+  // Safe mode is a migration with migrate_force false, forced mode with migrate_force true
   message ColumnFinding {
     string column_name = 1;
     Category category = 2;
@@ -285,8 +287,8 @@ message AssessTables {
     string forced_mode_behavior = 4;
     repeated ColumnFinding columns = 5;
     repeated Evidence evidence = 6;
-    bool coverage_incomplete = 7;
-    string coverage_incomplete_reason = 8;
+    // Non-empty when the assessment could not cover the whole table
+    string incomplete_coverage_reason = 7;
   }
   message Request {
     repeated TablePair tables = 1;
