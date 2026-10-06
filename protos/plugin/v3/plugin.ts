@@ -3685,6 +3685,849 @@ export namespace cloudquery.plugin.v3 {
             }
         }
     }
+    export class AssessTables extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {}) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") { }
+        }
+        static fromObject(data: {}): AssessTables {
+            const message = new AssessTables({});
+            return message;
+        }
+        toObject() {
+            const data: {} = {};
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): AssessTables {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new AssessTables();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): AssessTables {
+            return AssessTables.deserialize(bytes);
+        }
+    }
+    export namespace AssessTables {
+        export enum Category {
+            CATEGORY_UNKNOWN = 0,
+            CATEGORY_NO_CHANGE = 1,
+            CATEGORY_AUTOMATICALLY_MIGRATABLE = 2,
+            CATEGORY_MANUAL_MIGRATION_REQUIRED = 3,
+            CATEGORY_TABLE_REMOVED = 4,
+            CATEGORY_FILE_SCHEMA_CHANGED = 5
+        }
+        export class TablePair extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                old_table?: Uint8Array;
+                new_table?: Uint8Array;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("old_table" in data && data.old_table != undefined) {
+                        this.old_table = data.old_table;
+                    }
+                    if ("new_table" in data && data.new_table != undefined) {
+                        this.new_table = data.new_table;
+                    }
+                }
+            }
+            get old_table() {
+                return pb_1.Message.getFieldWithDefault(this, 1, new Uint8Array(0)) as Uint8Array;
+            }
+            set old_table(value: Uint8Array) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get new_table() {
+                return pb_1.Message.getFieldWithDefault(this, 2, new Uint8Array(0)) as Uint8Array;
+            }
+            set new_table(value: Uint8Array) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            static fromObject(data: {
+                old_table?: Uint8Array;
+                new_table?: Uint8Array;
+            }): TablePair {
+                const message = new TablePair({});
+                if (data.old_table != null) {
+                    message.old_table = data.old_table;
+                }
+                if (data.new_table != null) {
+                    message.new_table = data.new_table;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    old_table?: Uint8Array;
+                    new_table?: Uint8Array;
+                } = {};
+                if (this.old_table != null) {
+                    data.old_table = this.old_table;
+                }
+                if (this.new_table != null) {
+                    data.new_table = this.new_table;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.old_table.length)
+                    writer.writeBytes(1, this.old_table);
+                if (this.new_table.length)
+                    writer.writeBytes(2, this.new_table);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): TablePair {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new TablePair();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.old_table = reader.readBytes();
+                            break;
+                        case 2:
+                            message.new_table = reader.readBytes();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): TablePair {
+                return TablePair.deserialize(bytes);
+            }
+        }
+        export class Evidence extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                synthetic_value?: string;
+                before?: string;
+                after?: string;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("synthetic_value" in data && data.synthetic_value != undefined) {
+                        this.synthetic_value = data.synthetic_value;
+                    }
+                    if ("before" in data && data.before != undefined) {
+                        this.before = data.before;
+                    }
+                    if ("after" in data && data.after != undefined) {
+                        this.after = data.after;
+                    }
+                }
+            }
+            get synthetic_value() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set synthetic_value(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get before() {
+                return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+            }
+            set before(value: string) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            get after() {
+                return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+            }
+            set after(value: string) {
+                pb_1.Message.setField(this, 3, value);
+            }
+            static fromObject(data: {
+                synthetic_value?: string;
+                before?: string;
+                after?: string;
+            }): Evidence {
+                const message = new Evidence({});
+                if (data.synthetic_value != null) {
+                    message.synthetic_value = data.synthetic_value;
+                }
+                if (data.before != null) {
+                    message.before = data.before;
+                }
+                if (data.after != null) {
+                    message.after = data.after;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    synthetic_value?: string;
+                    before?: string;
+                    after?: string;
+                } = {};
+                if (this.synthetic_value != null) {
+                    data.synthetic_value = this.synthetic_value;
+                }
+                if (this.before != null) {
+                    data.before = this.before;
+                }
+                if (this.after != null) {
+                    data.after = this.after;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.synthetic_value.length)
+                    writer.writeString(1, this.synthetic_value);
+                if (this.before.length)
+                    writer.writeString(2, this.before);
+                if (this.after.length)
+                    writer.writeString(3, this.after);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Evidence {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Evidence();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.synthetic_value = reader.readString();
+                            break;
+                        case 2:
+                            message.before = reader.readString();
+                            break;
+                        case 3:
+                            message.after = reader.readString();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Evidence {
+                return Evidence.deserialize(bytes);
+            }
+        }
+        export class ColumnFinding extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                column_name?: string;
+                category?: AssessTables.Category;
+                old_type?: string;
+                new_type?: string;
+                safe_mode_behavior?: string;
+                forced_mode_behavior?: string;
+                evidence?: AssessTables.Evidence[];
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [7], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("column_name" in data && data.column_name != undefined) {
+                        this.column_name = data.column_name;
+                    }
+                    if ("category" in data && data.category != undefined) {
+                        this.category = data.category;
+                    }
+                    if ("old_type" in data && data.old_type != undefined) {
+                        this.old_type = data.old_type;
+                    }
+                    if ("new_type" in data && data.new_type != undefined) {
+                        this.new_type = data.new_type;
+                    }
+                    if ("safe_mode_behavior" in data && data.safe_mode_behavior != undefined) {
+                        this.safe_mode_behavior = data.safe_mode_behavior;
+                    }
+                    if ("forced_mode_behavior" in data && data.forced_mode_behavior != undefined) {
+                        this.forced_mode_behavior = data.forced_mode_behavior;
+                    }
+                    if ("evidence" in data && data.evidence != undefined) {
+                        this.evidence = data.evidence;
+                    }
+                }
+            }
+            get column_name() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set column_name(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get category() {
+                return pb_1.Message.getFieldWithDefault(this, 2, AssessTables.Category.CATEGORY_UNKNOWN) as AssessTables.Category;
+            }
+            set category(value: AssessTables.Category) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            get old_type() {
+                return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+            }
+            set old_type(value: string) {
+                pb_1.Message.setField(this, 3, value);
+            }
+            get new_type() {
+                return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+            }
+            set new_type(value: string) {
+                pb_1.Message.setField(this, 4, value);
+            }
+            get safe_mode_behavior() {
+                return pb_1.Message.getFieldWithDefault(this, 5, "") as string;
+            }
+            set safe_mode_behavior(value: string) {
+                pb_1.Message.setField(this, 5, value);
+            }
+            get forced_mode_behavior() {
+                return pb_1.Message.getFieldWithDefault(this, 6, "") as string;
+            }
+            set forced_mode_behavior(value: string) {
+                pb_1.Message.setField(this, 6, value);
+            }
+            get evidence() {
+                return pb_1.Message.getRepeatedWrapperField(this, AssessTables.Evidence, 7) as AssessTables.Evidence[];
+            }
+            set evidence(value: AssessTables.Evidence[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 7, value);
+            }
+            static fromObject(data: {
+                column_name?: string;
+                category?: AssessTables.Category;
+                old_type?: string;
+                new_type?: string;
+                safe_mode_behavior?: string;
+                forced_mode_behavior?: string;
+                evidence?: ReturnType<typeof AssessTables.Evidence.prototype.toObject>[];
+            }): ColumnFinding {
+                const message = new ColumnFinding({});
+                if (data.column_name != null) {
+                    message.column_name = data.column_name;
+                }
+                if (data.category != null) {
+                    message.category = data.category;
+                }
+                if (data.old_type != null) {
+                    message.old_type = data.old_type;
+                }
+                if (data.new_type != null) {
+                    message.new_type = data.new_type;
+                }
+                if (data.safe_mode_behavior != null) {
+                    message.safe_mode_behavior = data.safe_mode_behavior;
+                }
+                if (data.forced_mode_behavior != null) {
+                    message.forced_mode_behavior = data.forced_mode_behavior;
+                }
+                if (data.evidence != null) {
+                    message.evidence = data.evidence.map(item => AssessTables.Evidence.fromObject(item));
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    column_name?: string;
+                    category?: AssessTables.Category;
+                    old_type?: string;
+                    new_type?: string;
+                    safe_mode_behavior?: string;
+                    forced_mode_behavior?: string;
+                    evidence?: ReturnType<typeof AssessTables.Evidence.prototype.toObject>[];
+                } = {};
+                if (this.column_name != null) {
+                    data.column_name = this.column_name;
+                }
+                if (this.category != null) {
+                    data.category = this.category;
+                }
+                if (this.old_type != null) {
+                    data.old_type = this.old_type;
+                }
+                if (this.new_type != null) {
+                    data.new_type = this.new_type;
+                }
+                if (this.safe_mode_behavior != null) {
+                    data.safe_mode_behavior = this.safe_mode_behavior;
+                }
+                if (this.forced_mode_behavior != null) {
+                    data.forced_mode_behavior = this.forced_mode_behavior;
+                }
+                if (this.evidence != null) {
+                    data.evidence = this.evidence.map((item: AssessTables.Evidence) => item.toObject());
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.column_name.length)
+                    writer.writeString(1, this.column_name);
+                if (this.category != AssessTables.Category.CATEGORY_UNKNOWN)
+                    writer.writeEnum(2, this.category);
+                if (this.old_type.length)
+                    writer.writeString(3, this.old_type);
+                if (this.new_type.length)
+                    writer.writeString(4, this.new_type);
+                if (this.safe_mode_behavior.length)
+                    writer.writeString(5, this.safe_mode_behavior);
+                if (this.forced_mode_behavior.length)
+                    writer.writeString(6, this.forced_mode_behavior);
+                if (this.evidence.length)
+                    writer.writeRepeatedMessage(7, this.evidence, (item: AssessTables.Evidence) => item.serialize(writer));
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ColumnFinding {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ColumnFinding();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.column_name = reader.readString();
+                            break;
+                        case 2:
+                            message.category = reader.readEnum();
+                            break;
+                        case 3:
+                            message.old_type = reader.readString();
+                            break;
+                        case 4:
+                            message.new_type = reader.readString();
+                            break;
+                        case 5:
+                            message.safe_mode_behavior = reader.readString();
+                            break;
+                        case 6:
+                            message.forced_mode_behavior = reader.readString();
+                            break;
+                        case 7:
+                            reader.readMessage(message.evidence, () => pb_1.Message.addToRepeatedWrapperField(message, 7, AssessTables.Evidence.deserialize(reader), AssessTables.Evidence));
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): ColumnFinding {
+                return ColumnFinding.deserialize(bytes);
+            }
+        }
+        export class TableFinding extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                table_name?: string;
+                category?: AssessTables.Category;
+                safe_mode_behavior?: string;
+                forced_mode_behavior?: string;
+                columns?: AssessTables.ColumnFinding[];
+                evidence?: AssessTables.Evidence[];
+                coverage_incomplete?: boolean;
+                coverage_incomplete_reason?: string;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [5, 6], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("table_name" in data && data.table_name != undefined) {
+                        this.table_name = data.table_name;
+                    }
+                    if ("category" in data && data.category != undefined) {
+                        this.category = data.category;
+                    }
+                    if ("safe_mode_behavior" in data && data.safe_mode_behavior != undefined) {
+                        this.safe_mode_behavior = data.safe_mode_behavior;
+                    }
+                    if ("forced_mode_behavior" in data && data.forced_mode_behavior != undefined) {
+                        this.forced_mode_behavior = data.forced_mode_behavior;
+                    }
+                    if ("columns" in data && data.columns != undefined) {
+                        this.columns = data.columns;
+                    }
+                    if ("evidence" in data && data.evidence != undefined) {
+                        this.evidence = data.evidence;
+                    }
+                    if ("coverage_incomplete" in data && data.coverage_incomplete != undefined) {
+                        this.coverage_incomplete = data.coverage_incomplete;
+                    }
+                    if ("coverage_incomplete_reason" in data && data.coverage_incomplete_reason != undefined) {
+                        this.coverage_incomplete_reason = data.coverage_incomplete_reason;
+                    }
+                }
+            }
+            get table_name() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set table_name(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get category() {
+                return pb_1.Message.getFieldWithDefault(this, 2, AssessTables.Category.CATEGORY_UNKNOWN) as AssessTables.Category;
+            }
+            set category(value: AssessTables.Category) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            get safe_mode_behavior() {
+                return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+            }
+            set safe_mode_behavior(value: string) {
+                pb_1.Message.setField(this, 3, value);
+            }
+            get forced_mode_behavior() {
+                return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+            }
+            set forced_mode_behavior(value: string) {
+                pb_1.Message.setField(this, 4, value);
+            }
+            get columns() {
+                return pb_1.Message.getRepeatedWrapperField(this, AssessTables.ColumnFinding, 5) as AssessTables.ColumnFinding[];
+            }
+            set columns(value: AssessTables.ColumnFinding[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 5, value);
+            }
+            get evidence() {
+                return pb_1.Message.getRepeatedWrapperField(this, AssessTables.Evidence, 6) as AssessTables.Evidence[];
+            }
+            set evidence(value: AssessTables.Evidence[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 6, value);
+            }
+            get coverage_incomplete() {
+                return pb_1.Message.getFieldWithDefault(this, 7, false) as boolean;
+            }
+            set coverage_incomplete(value: boolean) {
+                pb_1.Message.setField(this, 7, value);
+            }
+            get coverage_incomplete_reason() {
+                return pb_1.Message.getFieldWithDefault(this, 8, "") as string;
+            }
+            set coverage_incomplete_reason(value: string) {
+                pb_1.Message.setField(this, 8, value);
+            }
+            static fromObject(data: {
+                table_name?: string;
+                category?: AssessTables.Category;
+                safe_mode_behavior?: string;
+                forced_mode_behavior?: string;
+                columns?: ReturnType<typeof AssessTables.ColumnFinding.prototype.toObject>[];
+                evidence?: ReturnType<typeof AssessTables.Evidence.prototype.toObject>[];
+                coverage_incomplete?: boolean;
+                coverage_incomplete_reason?: string;
+            }): TableFinding {
+                const message = new TableFinding({});
+                if (data.table_name != null) {
+                    message.table_name = data.table_name;
+                }
+                if (data.category != null) {
+                    message.category = data.category;
+                }
+                if (data.safe_mode_behavior != null) {
+                    message.safe_mode_behavior = data.safe_mode_behavior;
+                }
+                if (data.forced_mode_behavior != null) {
+                    message.forced_mode_behavior = data.forced_mode_behavior;
+                }
+                if (data.columns != null) {
+                    message.columns = data.columns.map(item => AssessTables.ColumnFinding.fromObject(item));
+                }
+                if (data.evidence != null) {
+                    message.evidence = data.evidence.map(item => AssessTables.Evidence.fromObject(item));
+                }
+                if (data.coverage_incomplete != null) {
+                    message.coverage_incomplete = data.coverage_incomplete;
+                }
+                if (data.coverage_incomplete_reason != null) {
+                    message.coverage_incomplete_reason = data.coverage_incomplete_reason;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    table_name?: string;
+                    category?: AssessTables.Category;
+                    safe_mode_behavior?: string;
+                    forced_mode_behavior?: string;
+                    columns?: ReturnType<typeof AssessTables.ColumnFinding.prototype.toObject>[];
+                    evidence?: ReturnType<typeof AssessTables.Evidence.prototype.toObject>[];
+                    coverage_incomplete?: boolean;
+                    coverage_incomplete_reason?: string;
+                } = {};
+                if (this.table_name != null) {
+                    data.table_name = this.table_name;
+                }
+                if (this.category != null) {
+                    data.category = this.category;
+                }
+                if (this.safe_mode_behavior != null) {
+                    data.safe_mode_behavior = this.safe_mode_behavior;
+                }
+                if (this.forced_mode_behavior != null) {
+                    data.forced_mode_behavior = this.forced_mode_behavior;
+                }
+                if (this.columns != null) {
+                    data.columns = this.columns.map((item: AssessTables.ColumnFinding) => item.toObject());
+                }
+                if (this.evidence != null) {
+                    data.evidence = this.evidence.map((item: AssessTables.Evidence) => item.toObject());
+                }
+                if (this.coverage_incomplete != null) {
+                    data.coverage_incomplete = this.coverage_incomplete;
+                }
+                if (this.coverage_incomplete_reason != null) {
+                    data.coverage_incomplete_reason = this.coverage_incomplete_reason;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.table_name.length)
+                    writer.writeString(1, this.table_name);
+                if (this.category != AssessTables.Category.CATEGORY_UNKNOWN)
+                    writer.writeEnum(2, this.category);
+                if (this.safe_mode_behavior.length)
+                    writer.writeString(3, this.safe_mode_behavior);
+                if (this.forced_mode_behavior.length)
+                    writer.writeString(4, this.forced_mode_behavior);
+                if (this.columns.length)
+                    writer.writeRepeatedMessage(5, this.columns, (item: AssessTables.ColumnFinding) => item.serialize(writer));
+                if (this.evidence.length)
+                    writer.writeRepeatedMessage(6, this.evidence, (item: AssessTables.Evidence) => item.serialize(writer));
+                if (this.coverage_incomplete != false)
+                    writer.writeBool(7, this.coverage_incomplete);
+                if (this.coverage_incomplete_reason.length)
+                    writer.writeString(8, this.coverage_incomplete_reason);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): TableFinding {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new TableFinding();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.table_name = reader.readString();
+                            break;
+                        case 2:
+                            message.category = reader.readEnum();
+                            break;
+                        case 3:
+                            message.safe_mode_behavior = reader.readString();
+                            break;
+                        case 4:
+                            message.forced_mode_behavior = reader.readString();
+                            break;
+                        case 5:
+                            reader.readMessage(message.columns, () => pb_1.Message.addToRepeatedWrapperField(message, 5, AssessTables.ColumnFinding.deserialize(reader), AssessTables.ColumnFinding));
+                            break;
+                        case 6:
+                            reader.readMessage(message.evidence, () => pb_1.Message.addToRepeatedWrapperField(message, 6, AssessTables.Evidence.deserialize(reader), AssessTables.Evidence));
+                            break;
+                        case 7:
+                            message.coverage_incomplete = reader.readBool();
+                            break;
+                        case 8:
+                            message.coverage_incomplete_reason = reader.readString();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): TableFinding {
+                return TableFinding.deserialize(bytes);
+            }
+        }
+        export class Request extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                tables?: AssessTables.TablePair[];
+                migrate_force?: boolean;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("tables" in data && data.tables != undefined) {
+                        this.tables = data.tables;
+                    }
+                    if ("migrate_force" in data && data.migrate_force != undefined) {
+                        this.migrate_force = data.migrate_force;
+                    }
+                }
+            }
+            get tables() {
+                return pb_1.Message.getRepeatedWrapperField(this, AssessTables.TablePair, 1) as AssessTables.TablePair[];
+            }
+            set tables(value: AssessTables.TablePair[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 1, value);
+            }
+            get migrate_force() {
+                return pb_1.Message.getFieldWithDefault(this, 2, false) as boolean;
+            }
+            set migrate_force(value: boolean) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            static fromObject(data: {
+                tables?: ReturnType<typeof AssessTables.TablePair.prototype.toObject>[];
+                migrate_force?: boolean;
+            }): Request {
+                const message = new Request({});
+                if (data.tables != null) {
+                    message.tables = data.tables.map(item => AssessTables.TablePair.fromObject(item));
+                }
+                if (data.migrate_force != null) {
+                    message.migrate_force = data.migrate_force;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    tables?: ReturnType<typeof AssessTables.TablePair.prototype.toObject>[];
+                    migrate_force?: boolean;
+                } = {};
+                if (this.tables != null) {
+                    data.tables = this.tables.map((item: AssessTables.TablePair) => item.toObject());
+                }
+                if (this.migrate_force != null) {
+                    data.migrate_force = this.migrate_force;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.tables.length)
+                    writer.writeRepeatedMessage(1, this.tables, (item: AssessTables.TablePair) => item.serialize(writer));
+                if (this.migrate_force != false)
+                    writer.writeBool(2, this.migrate_force);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Request {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Request();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            reader.readMessage(message.tables, () => pb_1.Message.addToRepeatedWrapperField(message, 1, AssessTables.TablePair.deserialize(reader), AssessTables.TablePair));
+                            break;
+                        case 2:
+                            message.migrate_force = reader.readBool();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Request {
+                return Request.deserialize(bytes);
+            }
+        }
+        export class Response extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                tables?: AssessTables.TableFinding[];
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("tables" in data && data.tables != undefined) {
+                        this.tables = data.tables;
+                    }
+                }
+            }
+            get tables() {
+                return pb_1.Message.getRepeatedWrapperField(this, AssessTables.TableFinding, 1) as AssessTables.TableFinding[];
+            }
+            set tables(value: AssessTables.TableFinding[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 1, value);
+            }
+            static fromObject(data: {
+                tables?: ReturnType<typeof AssessTables.TableFinding.prototype.toObject>[];
+            }): Response {
+                const message = new Response({});
+                if (data.tables != null) {
+                    message.tables = data.tables.map(item => AssessTables.TableFinding.fromObject(item));
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    tables?: ReturnType<typeof AssessTables.TableFinding.prototype.toObject>[];
+                } = {};
+                if (this.tables != null) {
+                    data.tables = this.tables.map((item: AssessTables.TableFinding) => item.toObject());
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.tables.length)
+                    writer.writeRepeatedMessage(1, this.tables, (item: AssessTables.TableFinding) => item.serialize(writer));
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Response {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Response();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            reader.readMessage(message.tables, () => pb_1.Message.addToRepeatedWrapperField(message, 1, AssessTables.TableFinding.deserialize(reader), AssessTables.TableFinding));
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Response {
+                return Response.deserialize(bytes);
+            }
+        }
+    }
     interface GrpcUnaryServiceInterface<P, R> {
         (message: P, metadata: grpc_1.Metadata, options: grpc_1.CallOptions, callback: grpc_1.requestCallback<R>): grpc_1.ClientUnaryCall;
         (message: P, metadata: grpc_1.Metadata, callback: grpc_1.requestCallback<R>): grpc_1.ClientUnaryCall;
@@ -3818,6 +4661,15 @@ export namespace cloudquery.plugin.v3 {
                 requestDeserialize: (bytes: Buffer) => TestConnection.Request.deserialize(new Uint8Array(bytes)),
                 responseSerialize: (message: TestConnection.Response) => Buffer.from(message.serialize()),
                 responseDeserialize: (bytes: Buffer) => TestConnection.Response.deserialize(new Uint8Array(bytes))
+            },
+            AssessTables: {
+                path: "/cloudquery.plugin.v3.Plugin/AssessTables",
+                requestStream: false,
+                responseStream: false,
+                requestSerialize: (message: AssessTables.Request) => Buffer.from(message.serialize()),
+                requestDeserialize: (bytes: Buffer) => AssessTables.Request.deserialize(new Uint8Array(bytes)),
+                responseSerialize: (message: AssessTables.Response) => Buffer.from(message.serialize()),
+                responseDeserialize: (bytes: Buffer) => AssessTables.Response.deserialize(new Uint8Array(bytes))
             }
         };
         [method: string]: grpc_1.UntypedHandleCall;
@@ -3833,6 +4685,7 @@ export namespace cloudquery.plugin.v3 {
         abstract TransformSchema(call: grpc_1.ServerUnaryCall<TransformSchema.Request, TransformSchema.Response>, callback: grpc_1.sendUnaryData<TransformSchema.Response>): void;
         abstract Close(call: grpc_1.ServerUnaryCall<Close.Request, Close.Response>, callback: grpc_1.sendUnaryData<Close.Response>): void;
         abstract TestConnection(call: grpc_1.ServerUnaryCall<TestConnection.Request, TestConnection.Response>, callback: grpc_1.sendUnaryData<TestConnection.Response>): void;
+        abstract AssessTables(call: grpc_1.ServerUnaryCall<AssessTables.Request, AssessTables.Response>, callback: grpc_1.sendUnaryData<AssessTables.Response>): void;
     }
     export class PluginClient extends grpc_1.makeGenericClientConstructor(UnimplementedPluginService.definition, "Plugin", {}) {
         constructor(address: string, credentials: grpc_1.ChannelCredentials, options?: Partial<grpc_1.ChannelOptions>) {
@@ -3873,6 +4726,9 @@ export namespace cloudquery.plugin.v3 {
         };
         TestConnection: GrpcUnaryServiceInterface<TestConnection.Request, TestConnection.Response> = (message: TestConnection.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<TestConnection.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<TestConnection.Response>, callback?: grpc_1.requestCallback<TestConnection.Response>): grpc_1.ClientUnaryCall => {
             return super.TestConnection(message, metadata, options, callback);
+        };
+        AssessTables: GrpcUnaryServiceInterface<AssessTables.Request, AssessTables.Response> = (message: AssessTables.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<AssessTables.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<AssessTables.Response>, callback?: grpc_1.requestCallback<AssessTables.Response>): grpc_1.ClientUnaryCall => {
+            return super.AssessTables(message, metadata, options, callback);
         };
     }
 }

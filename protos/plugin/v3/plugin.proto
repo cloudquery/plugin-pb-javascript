@@ -35,6 +35,9 @@ service Plugin {
   rpc Close(Close.Request) returns (Close.Response);
   // Validate and test the connections used by the plugin
   rpc TestConnection(TestConnection.Request) returns (TestConnection.Response);
+  // Assess how the destination plugin would apply table schema changes, without writing anything.
+  // Plugins that do not support assessment return Unimplemented.
+  rpc AssessTables(AssessTables.Request) returns (AssessTables.Response);
 }
 
 message GetName {
@@ -241,5 +244,55 @@ message TestConnection {
     bool success = 1;
     string failure_code = 2;
     string failure_description = 3;
+  }
+}
+
+message AssessTables {
+  enum Category {
+    CATEGORY_UNKNOWN = 0;
+    CATEGORY_NO_CHANGE = 1;
+    CATEGORY_AUTOMATICALLY_MIGRATABLE = 2;
+    CATEGORY_MANUAL_MIGRATION_REQUIRED = 3;
+    CATEGORY_TABLE_REMOVED = 4;
+    CATEGORY_FILE_SCHEMA_CHANGED = 5;
+  }
+  message TablePair {
+    // marshalled arrow.Schema, empty when the table is added
+    bytes old_table = 1;
+    // marshalled arrow.Schema, empty when the table is removed
+    bytes new_table = 2;
+  }
+  message Evidence {
+    string synthetic_value = 1;
+    // Destination output for the synthetic value under the old and new schemas
+    string before = 2;
+    string after = 3;
+  }
+  message ColumnFinding {
+    string column_name = 1;
+    Category category = 2;
+    // Destination types, empty when the column is added or removed
+    string old_type = 3;
+    string new_type = 4;
+    string safe_mode_behavior = 5;
+    string forced_mode_behavior = 6;
+    repeated Evidence evidence = 7;
+  }
+  message TableFinding {
+    string table_name = 1;
+    Category category = 2;
+    string safe_mode_behavior = 3;
+    string forced_mode_behavior = 4;
+    repeated ColumnFinding columns = 5;
+    repeated Evidence evidence = 6;
+    bool coverage_incomplete = 7;
+    string coverage_incomplete_reason = 8;
+  }
+  message Request {
+    repeated TablePair tables = 1;
+    bool migrate_force = 2;
+  }
+  message Response {
+    repeated TableFinding tables = 1;
   }
 }
