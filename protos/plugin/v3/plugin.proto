@@ -38,6 +38,12 @@ service Plugin {
   // Assess how the destination plugin would apply table schema changes, without writing anything.
   // Plugins that do not support assessment return Unimplemented.
   rpc AssessTables(AssessTables.Request) returns (AssessTables.Response);
+  // Write resources, like Write, and also accept Write.MessageFlush.
+  // The plugin sends one Write.Response per Write.MessageFlush, once it has tried to commit every message sent before
+  // the flush. Write.Response.flush_error is set if some messages sent since the previous flush may not have been
+  // committed.
+  // Only use it with plugins that set Init.Response.supports_flush.
+  rpc WriteStream(stream Write.Request) returns (stream Write.Response);
 }
 
 message GetName {
@@ -69,7 +75,10 @@ message Init {
     bool no_connection = 2; // A flag to indicate plugins should skip establishing a connection
     string invocation_id = 3; // unique execution_id that will identify the invocation (sync, migrate etc)
   }
-  message Response {}
+  message Response {
+    // The plugin supports WriteStream and Write.MessageFlush
+    bool supports_flush = 1;
+  }
 }
 
 message GetTables {
@@ -102,6 +111,19 @@ message Sync {
     string table_name = 1;
     string error = 2;
   }
+  // State backend rows to persist once every message sent before the checkpoint is committed to all destinations.
+  // Only sent when Sync.Request.supports_checkpoints is set.
+  //
+  // The record must:
+  // - have the cq:table_name schema metadata set to Sync.BackendOptions.table_name
+  // - have a "key" column and a "value" column, both of the arrow utf8 type (not large_utf8)
+  // - have a "version" column of the arrow uint64 type, if the state table has one
+  // - hold only the keys that changed. Each row is an upsert of its key; keys not in the record keep their state.
+  // When the same key is in several checkpoints, the row with the highest version wins, or the last row without a version column.
+  message MessageCheckpoint {
+    // marshalled arrow.Record
+    bytes record = 1;
+  }
 
 
   message BackendOptions {
@@ -122,6 +144,9 @@ message Sync {
     BackendOptions backend = 5;
     optional Shard shard = 6;
     bool withErrorMessages = 7; // If true, the plugin will send error messages in the response stream
+    // If true, the client persists state backend writes from Sync.MessageCheckpoint,
+    // so the plugin sends them on the stream instead of writing to the state backend
+    bool supports_checkpoints = 8;
   }
   message Response {
     oneof message {
@@ -129,6 +154,7 @@ message Sync {
       Sync.MessageInsert insert = 2;
       Sync.MessageDeleteRecord delete_record = 3;
       Sync.MessageError error = 4;
+      Sync.MessageCheckpoint checkpoint = 5;
     }
   }
 }
@@ -198,15 +224,30 @@ message Write {
     repeated PredicatesGroup where_clause = 2;
     repeated TableRelation table_relations = 3;
   }
+  // Commit every message sent before this one. Only valid on WriteStream.
+  message MessageFlush {
+    uint64 id = 1;
+  }
   message Request {
     oneof message {
       Write.MessageMigrateTable migrate_table = 1;
       Write.MessageInsert insert = 2;
       Write.MessageDeleteStale delete = 3;
-      Write.MessageDeleteRecord delete_record = 4; 
+      Write.MessageDeleteRecord delete_record = 4;
+      Write.MessageFlush flush = 5;
     }
   }
-  message Response {}
+  message Response {
+    // WriteStream only: id of the Write.MessageFlush that completed
+    uint64 flush_id = 1;
+    // WriteStream only: why some messages sent since the previous flush may not have been committed. A failure may be
+    // reported only once, so a later flush can succeed although earlier messages were lost: clients must treat the
+    // first failure as final. A plugin may end the stream after reporting a failure, or instead of reporting it.
+    string flush_error = 2;
+    // WriteStream only: with flush_error, the tables whose messages may not have been committed. Empty if the plugin
+    // cannot tell, in which case messages of any table may have been lost.
+    repeated string failed_tables = 3;
+  }
 }
 
 message Transform {
