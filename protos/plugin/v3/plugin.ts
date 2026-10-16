@@ -622,23 +622,47 @@ export namespace cloudquery.plugin.v3 {
         }
         export class Response extends pb_1.Message {
             #one_of_decls: number[][] = [];
-            constructor(data?: any[] | {}) {
+            constructor(data?: any[] | {
+                supports_flush?: boolean;
+            }) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-                if (!Array.isArray(data) && typeof data == "object") { }
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("supports_flush" in data && data.supports_flush != undefined) {
+                        this.supports_flush = data.supports_flush;
+                    }
+                }
             }
-            static fromObject(data: {}): Response {
+            get supports_flush() {
+                return pb_1.Message.getFieldWithDefault(this, 1, false) as boolean;
+            }
+            set supports_flush(value: boolean) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            static fromObject(data: {
+                supports_flush?: boolean;
+            }): Response {
                 const message = new Response({});
+                if (data.supports_flush != null) {
+                    message.supports_flush = data.supports_flush;
+                }
                 return message;
             }
             toObject() {
-                const data: {} = {};
+                const data: {
+                    supports_flush?: boolean;
+                } = {};
+                if (this.supports_flush != null) {
+                    data.supports_flush = this.supports_flush;
+                }
                 return data;
             }
             serialize(): Uint8Array;
             serialize(w: pb_1.BinaryWriter): void;
             serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
                 const writer = w || new pb_1.BinaryWriter();
+                if (this.supports_flush != false)
+                    writer.writeBool(1, this.supports_flush);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -648,6 +672,9 @@ export namespace cloudquery.plugin.v3 {
                     if (reader.isEndGroup())
                         break;
                     switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.supports_flush = reader.readBool();
+                            break;
                         default: reader.skipField();
                     }
                 }
@@ -1261,6 +1288,73 @@ export namespace cloudquery.plugin.v3 {
                 return MessageError.deserialize(bytes);
             }
         }
+        export class MessageCheckpoint extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                record?: Uint8Array;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("record" in data && data.record != undefined) {
+                        this.record = data.record;
+                    }
+                }
+            }
+            get record() {
+                return pb_1.Message.getFieldWithDefault(this, 1, new Uint8Array(0)) as Uint8Array;
+            }
+            set record(value: Uint8Array) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            static fromObject(data: {
+                record?: Uint8Array;
+            }): MessageCheckpoint {
+                const message = new MessageCheckpoint({});
+                if (data.record != null) {
+                    message.record = data.record;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    record?: Uint8Array;
+                } = {};
+                if (this.record != null) {
+                    data.record = this.record;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.record.length)
+                    writer.writeBytes(1, this.record);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MessageCheckpoint {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MessageCheckpoint();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.record = reader.readBytes();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): MessageCheckpoint {
+                return MessageCheckpoint.deserialize(bytes);
+            }
+        }
         export class BackendOptions extends pb_1.Message {
             #one_of_decls: number[][] = [];
             constructor(data?: any[] | {
@@ -1360,6 +1454,7 @@ export namespace cloudquery.plugin.v3 {
                 deterministic_cq_id?: boolean;
                 backend?: Sync.BackendOptions;
                 withErrorMessages?: boolean;
+                supports_checkpoints?: boolean;
             } & (({
                 shard?: Sync.Request.Shard;
             })))) {
@@ -1386,6 +1481,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("withErrorMessages" in data && data.withErrorMessages != undefined) {
                         this.withErrorMessages = data.withErrorMessages;
+                    }
+                    if ("supports_checkpoints" in data && data.supports_checkpoints != undefined) {
+                        this.supports_checkpoints = data.supports_checkpoints;
                     }
                 }
             }
@@ -1437,6 +1535,12 @@ export namespace cloudquery.plugin.v3 {
             set withErrorMessages(value: boolean) {
                 pb_1.Message.setField(this, 7, value);
             }
+            get supports_checkpoints() {
+                return pb_1.Message.getFieldWithDefault(this, 8, false) as boolean;
+            }
+            set supports_checkpoints(value: boolean) {
+                pb_1.Message.setField(this, 8, value);
+            }
             get _shard() {
                 const cases: {
                     [index: number]: "none" | "shard";
@@ -1454,6 +1558,7 @@ export namespace cloudquery.plugin.v3 {
                 backend?: ReturnType<typeof Sync.BackendOptions.prototype.toObject>;
                 shard?: ReturnType<typeof Sync.Request.Shard.prototype.toObject>;
                 withErrorMessages?: boolean;
+                supports_checkpoints?: boolean;
             }): Request {
                 const message = new Request({});
                 if (data.tables != null) {
@@ -1477,6 +1582,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.withErrorMessages != null) {
                     message.withErrorMessages = data.withErrorMessages;
                 }
+                if (data.supports_checkpoints != null) {
+                    message.supports_checkpoints = data.supports_checkpoints;
+                }
                 return message;
             }
             toObject() {
@@ -1488,6 +1596,7 @@ export namespace cloudquery.plugin.v3 {
                     backend?: ReturnType<typeof Sync.BackendOptions.prototype.toObject>;
                     shard?: ReturnType<typeof Sync.Request.Shard.prototype.toObject>;
                     withErrorMessages?: boolean;
+                    supports_checkpoints?: boolean;
                 } = {};
                 if (this.tables != null) {
                     data.tables = this.tables;
@@ -1510,6 +1619,9 @@ export namespace cloudquery.plugin.v3 {
                 if (this.withErrorMessages != null) {
                     data.withErrorMessages = this.withErrorMessages;
                 }
+                if (this.supports_checkpoints != null) {
+                    data.supports_checkpoints = this.supports_checkpoints;
+                }
                 return data;
             }
             serialize(): Uint8Array;
@@ -1530,6 +1642,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(6, this.shard, () => this.shard.serialize(writer));
                 if (this.withErrorMessages != false)
                     writer.writeBool(7, this.withErrorMessages);
+                if (this.supports_checkpoints != false)
+                    writer.writeBool(8, this.supports_checkpoints);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1559,6 +1673,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 7:
                             message.withErrorMessages = reader.readBool();
+                            break;
+                        case 8:
+                            message.supports_checkpoints = reader.readBool();
                             break;
                         default: reader.skipField();
                     }
@@ -1665,27 +1782,37 @@ export namespace cloudquery.plugin.v3 {
             }
         }
         export class Response extends pb_1.Message {
-            #one_of_decls: number[][] = [[1, 2, 3, 4]];
+            #one_of_decls: number[][] = [[1, 2, 3, 4, 5]];
             constructor(data?: any[] | ({} & (({
                 migrate_table?: Sync.MessageMigrateTable;
                 insert?: never;
                 delete_record?: never;
                 error?: never;
+                checkpoint?: never;
             } | {
                 migrate_table?: never;
                 insert?: Sync.MessageInsert;
                 delete_record?: never;
                 error?: never;
+                checkpoint?: never;
             } | {
                 migrate_table?: never;
                 insert?: never;
                 delete_record?: Sync.MessageDeleteRecord;
                 error?: never;
+                checkpoint?: never;
             } | {
                 migrate_table?: never;
                 insert?: never;
                 delete_record?: never;
                 error?: Sync.MessageError;
+                checkpoint?: never;
+            } | {
+                migrate_table?: never;
+                insert?: never;
+                delete_record?: never;
+                error?: never;
+                checkpoint?: Sync.MessageCheckpoint;
             })))) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -1701,6 +1828,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("error" in data && data.error != undefined) {
                         this.error = data.error;
+                    }
+                    if ("checkpoint" in data && data.checkpoint != undefined) {
+                        this.checkpoint = data.checkpoint;
                     }
                 }
             }
@@ -1740,23 +1870,34 @@ export namespace cloudquery.plugin.v3 {
             get has_error() {
                 return pb_1.Message.getField(this, 4) != null;
             }
+            get checkpoint() {
+                return pb_1.Message.getWrapperField(this, Sync.MessageCheckpoint, 5) as Sync.MessageCheckpoint;
+            }
+            set checkpoint(value: Sync.MessageCheckpoint) {
+                pb_1.Message.setOneofWrapperField(this, 5, this.#one_of_decls[0], value);
+            }
+            get has_checkpoint() {
+                return pb_1.Message.getField(this, 5) != null;
+            }
             get message() {
                 const cases: {
-                    [index: number]: "none" | "migrate_table" | "insert" | "delete_record" | "error";
+                    [index: number]: "none" | "migrate_table" | "insert" | "delete_record" | "error" | "checkpoint";
                 } = {
                     0: "none",
                     1: "migrate_table",
                     2: "insert",
                     3: "delete_record",
-                    4: "error"
+                    4: "error",
+                    5: "checkpoint"
                 };
-                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3, 4])];
+                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3, 4, 5])];
             }
             static fromObject(data: {
                 migrate_table?: ReturnType<typeof Sync.MessageMigrateTable.prototype.toObject>;
                 insert?: ReturnType<typeof Sync.MessageInsert.prototype.toObject>;
                 delete_record?: ReturnType<typeof Sync.MessageDeleteRecord.prototype.toObject>;
                 error?: ReturnType<typeof Sync.MessageError.prototype.toObject>;
+                checkpoint?: ReturnType<typeof Sync.MessageCheckpoint.prototype.toObject>;
             }): Response {
                 const message = new Response({});
                 if (data.migrate_table != null) {
@@ -1771,6 +1912,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.error != null) {
                     message.error = Sync.MessageError.fromObject(data.error);
                 }
+                if (data.checkpoint != null) {
+                    message.checkpoint = Sync.MessageCheckpoint.fromObject(data.checkpoint);
+                }
                 return message;
             }
             toObject() {
@@ -1779,6 +1923,7 @@ export namespace cloudquery.plugin.v3 {
                     insert?: ReturnType<typeof Sync.MessageInsert.prototype.toObject>;
                     delete_record?: ReturnType<typeof Sync.MessageDeleteRecord.prototype.toObject>;
                     error?: ReturnType<typeof Sync.MessageError.prototype.toObject>;
+                    checkpoint?: ReturnType<typeof Sync.MessageCheckpoint.prototype.toObject>;
                 } = {};
                 if (this.migrate_table != null) {
                     data.migrate_table = this.migrate_table.toObject();
@@ -1791,6 +1936,9 @@ export namespace cloudquery.plugin.v3 {
                 }
                 if (this.error != null) {
                     data.error = this.error.toObject();
+                }
+                if (this.checkpoint != null) {
+                    data.checkpoint = this.checkpoint.toObject();
                 }
                 return data;
             }
@@ -1806,6 +1954,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(3, this.delete_record, () => this.delete_record.serialize(writer));
                 if (this.has_error)
                     writer.writeMessage(4, this.error, () => this.error.serialize(writer));
+                if (this.has_checkpoint)
+                    writer.writeMessage(5, this.checkpoint, () => this.checkpoint.serialize(writer));
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -1826,6 +1976,9 @@ export namespace cloudquery.plugin.v3 {
                             break;
                         case 4:
                             reader.readMessage(message.error, () => message.error = Sync.MessageError.deserialize(reader));
+                            break;
+                        case 5:
+                            reader.readMessage(message.checkpoint, () => message.checkpoint = Sync.MessageCheckpoint.deserialize(reader));
                             break;
                         default: reader.skipField();
                     }
@@ -2773,28 +2926,105 @@ export namespace cloudquery.plugin.v3 {
                 return MessageDeleteRecord.deserialize(bytes);
             }
         }
+        export class MessageFlush extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                id?: number;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("id" in data && data.id != undefined) {
+                        this.id = data.id;
+                    }
+                }
+            }
+            get id() {
+                return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+            }
+            set id(value: number) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            static fromObject(data: {
+                id?: number;
+            }): MessageFlush {
+                const message = new MessageFlush({});
+                if (data.id != null) {
+                    message.id = data.id;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    id?: number;
+                } = {};
+                if (this.id != null) {
+                    data.id = this.id;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.id != 0)
+                    writer.writeUint64(1, this.id);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): MessageFlush {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new MessageFlush();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.id = reader.readUint64();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): MessageFlush {
+                return MessageFlush.deserialize(bytes);
+            }
+        }
         export class Request extends pb_1.Message {
-            #one_of_decls: number[][] = [[1, 2, 3, 4]];
+            #one_of_decls: number[][] = [[1, 2, 3, 4, 5]];
             constructor(data?: any[] | ({} & (({
                 migrate_table?: Write.MessageMigrateTable;
                 insert?: never;
                 delete?: never;
                 delete_record?: never;
+                flush?: never;
             } | {
                 migrate_table?: never;
                 insert?: Write.MessageInsert;
                 delete?: never;
                 delete_record?: never;
+                flush?: never;
             } | {
                 migrate_table?: never;
                 insert?: never;
                 delete?: Write.MessageDeleteStale;
                 delete_record?: never;
+                flush?: never;
             } | {
                 migrate_table?: never;
                 insert?: never;
                 delete?: never;
                 delete_record?: Write.MessageDeleteRecord;
+                flush?: never;
+            } | {
+                migrate_table?: never;
+                insert?: never;
+                delete?: never;
+                delete_record?: never;
+                flush?: Write.MessageFlush;
             })))) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -2810,6 +3040,9 @@ export namespace cloudquery.plugin.v3 {
                     }
                     if ("delete_record" in data && data.delete_record != undefined) {
                         this.delete_record = data.delete_record;
+                    }
+                    if ("flush" in data && data.flush != undefined) {
+                        this.flush = data.flush;
                     }
                 }
             }
@@ -2849,23 +3082,34 @@ export namespace cloudquery.plugin.v3 {
             get has_delete_record() {
                 return pb_1.Message.getField(this, 4) != null;
             }
+            get flush() {
+                return pb_1.Message.getWrapperField(this, Write.MessageFlush, 5) as Write.MessageFlush;
+            }
+            set flush(value: Write.MessageFlush) {
+                pb_1.Message.setOneofWrapperField(this, 5, this.#one_of_decls[0], value);
+            }
+            get has_flush() {
+                return pb_1.Message.getField(this, 5) != null;
+            }
             get message() {
                 const cases: {
-                    [index: number]: "none" | "migrate_table" | "insert" | "delete" | "delete_record";
+                    [index: number]: "none" | "migrate_table" | "insert" | "delete" | "delete_record" | "flush";
                 } = {
                     0: "none",
                     1: "migrate_table",
                     2: "insert",
                     3: "delete",
-                    4: "delete_record"
+                    4: "delete_record",
+                    5: "flush"
                 };
-                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3, 4])];
+                return cases[pb_1.Message.computeOneofCase(this, [1, 2, 3, 4, 5])];
             }
             static fromObject(data: {
                 migrate_table?: ReturnType<typeof Write.MessageMigrateTable.prototype.toObject>;
                 insert?: ReturnType<typeof Write.MessageInsert.prototype.toObject>;
                 delete?: ReturnType<typeof Write.MessageDeleteStale.prototype.toObject>;
                 delete_record?: ReturnType<typeof Write.MessageDeleteRecord.prototype.toObject>;
+                flush?: ReturnType<typeof Write.MessageFlush.prototype.toObject>;
             }): Request {
                 const message = new Request({});
                 if (data.migrate_table != null) {
@@ -2880,6 +3124,9 @@ export namespace cloudquery.plugin.v3 {
                 if (data.delete_record != null) {
                     message.delete_record = Write.MessageDeleteRecord.fromObject(data.delete_record);
                 }
+                if (data.flush != null) {
+                    message.flush = Write.MessageFlush.fromObject(data.flush);
+                }
                 return message;
             }
             toObject() {
@@ -2888,6 +3135,7 @@ export namespace cloudquery.plugin.v3 {
                     insert?: ReturnType<typeof Write.MessageInsert.prototype.toObject>;
                     delete?: ReturnType<typeof Write.MessageDeleteStale.prototype.toObject>;
                     delete_record?: ReturnType<typeof Write.MessageDeleteRecord.prototype.toObject>;
+                    flush?: ReturnType<typeof Write.MessageFlush.prototype.toObject>;
                 } = {};
                 if (this.migrate_table != null) {
                     data.migrate_table = this.migrate_table.toObject();
@@ -2900,6 +3148,9 @@ export namespace cloudquery.plugin.v3 {
                 }
                 if (this.delete_record != null) {
                     data.delete_record = this.delete_record.toObject();
+                }
+                if (this.flush != null) {
+                    data.flush = this.flush.toObject();
                 }
                 return data;
             }
@@ -2915,6 +3166,8 @@ export namespace cloudquery.plugin.v3 {
                     writer.writeMessage(3, this.delete, () => this.delete.serialize(writer));
                 if (this.has_delete_record)
                     writer.writeMessage(4, this.delete_record, () => this.delete_record.serialize(writer));
+                if (this.has_flush)
+                    writer.writeMessage(5, this.flush, () => this.flush.serialize(writer));
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -2936,6 +3189,9 @@ export namespace cloudquery.plugin.v3 {
                         case 4:
                             reader.readMessage(message.delete_record, () => message.delete_record = Write.MessageDeleteRecord.deserialize(reader));
                             break;
+                        case 5:
+                            reader.readMessage(message.flush, () => message.flush = Write.MessageFlush.deserialize(reader));
+                            break;
                         default: reader.skipField();
                     }
                 }
@@ -2950,23 +3206,87 @@ export namespace cloudquery.plugin.v3 {
         }
         export class Response extends pb_1.Message {
             #one_of_decls: number[][] = [];
-            constructor(data?: any[] | {}) {
+            constructor(data?: any[] | {
+                flush_id?: number;
+                flush_error?: string;
+                failed_tables?: string[];
+            }) {
                 super();
-                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
-                if (!Array.isArray(data) && typeof data == "object") { }
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [3], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("flush_id" in data && data.flush_id != undefined) {
+                        this.flush_id = data.flush_id;
+                    }
+                    if ("flush_error" in data && data.flush_error != undefined) {
+                        this.flush_error = data.flush_error;
+                    }
+                    if ("failed_tables" in data && data.failed_tables != undefined) {
+                        this.failed_tables = data.failed_tables;
+                    }
+                }
             }
-            static fromObject(data: {}): Response {
+            get flush_id() {
+                return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+            }
+            set flush_id(value: number) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get flush_error() {
+                return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+            }
+            set flush_error(value: string) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            get failed_tables() {
+                return pb_1.Message.getFieldWithDefault(this, 3, []) as string[];
+            }
+            set failed_tables(value: string[]) {
+                pb_1.Message.setField(this, 3, value);
+            }
+            static fromObject(data: {
+                flush_id?: number;
+                flush_error?: string;
+                failed_tables?: string[];
+            }): Response {
                 const message = new Response({});
+                if (data.flush_id != null) {
+                    message.flush_id = data.flush_id;
+                }
+                if (data.flush_error != null) {
+                    message.flush_error = data.flush_error;
+                }
+                if (data.failed_tables != null) {
+                    message.failed_tables = data.failed_tables;
+                }
                 return message;
             }
             toObject() {
-                const data: {} = {};
+                const data: {
+                    flush_id?: number;
+                    flush_error?: string;
+                    failed_tables?: string[];
+                } = {};
+                if (this.flush_id != null) {
+                    data.flush_id = this.flush_id;
+                }
+                if (this.flush_error != null) {
+                    data.flush_error = this.flush_error;
+                }
+                if (this.failed_tables != null) {
+                    data.failed_tables = this.failed_tables;
+                }
                 return data;
             }
             serialize(): Uint8Array;
             serialize(w: pb_1.BinaryWriter): void;
             serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
                 const writer = w || new pb_1.BinaryWriter();
+                if (this.flush_id != 0)
+                    writer.writeUint64(1, this.flush_id);
+                if (this.flush_error.length)
+                    writer.writeString(2, this.flush_error);
+                if (this.failed_tables.length)
+                    writer.writeRepeatedString(3, this.failed_tables);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -2976,6 +3296,15 @@ export namespace cloudquery.plugin.v3 {
                     if (reader.isEndGroup())
                         break;
                     switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.flush_id = reader.readUint64();
+                            break;
+                        case 2:
+                            message.flush_error = reader.readString();
+                            break;
+                        case 3:
+                            pb_1.Message.addToRepeatedField(message, 3, reader.readString());
+                            break;
                         default: reader.skipField();
                     }
                 }
@@ -4647,6 +4976,15 @@ export namespace cloudquery.plugin.v3 {
                 requestDeserialize: (bytes: Buffer) => AssessTables.Request.deserialize(new Uint8Array(bytes)),
                 responseSerialize: (message: AssessTables.Response) => Buffer.from(message.serialize()),
                 responseDeserialize: (bytes: Buffer) => AssessTables.Response.deserialize(new Uint8Array(bytes))
+            },
+            WriteStream: {
+                path: "/cloudquery.plugin.v3.Plugin/WriteStream",
+                requestStream: true,
+                responseStream: true,
+                requestSerialize: (message: Write.Request) => Buffer.from(message.serialize()),
+                requestDeserialize: (bytes: Buffer) => Write.Request.deserialize(new Uint8Array(bytes)),
+                responseSerialize: (message: Write.Response) => Buffer.from(message.serialize()),
+                responseDeserialize: (bytes: Buffer) => Write.Response.deserialize(new Uint8Array(bytes))
             }
         };
         [method: string]: grpc_1.UntypedHandleCall;
@@ -4663,6 +5001,7 @@ export namespace cloudquery.plugin.v3 {
         abstract Close(call: grpc_1.ServerUnaryCall<Close.Request, Close.Response>, callback: grpc_1.sendUnaryData<Close.Response>): void;
         abstract TestConnection(call: grpc_1.ServerUnaryCall<TestConnection.Request, TestConnection.Response>, callback: grpc_1.sendUnaryData<TestConnection.Response>): void;
         abstract AssessTables(call: grpc_1.ServerUnaryCall<AssessTables.Request, AssessTables.Response>, callback: grpc_1.sendUnaryData<AssessTables.Response>): void;
+        abstract WriteStream(call: grpc_1.ServerDuplexStream<Write.Request, Write.Response>): void;
     }
     export class PluginClient extends grpc_1.makeGenericClientConstructor(UnimplementedPluginService.definition, "Plugin", {}) {
         constructor(address: string, credentials: grpc_1.ChannelCredentials, options?: Partial<grpc_1.ChannelOptions>) {
@@ -4706,6 +5045,9 @@ export namespace cloudquery.plugin.v3 {
         };
         AssessTables: GrpcUnaryServiceInterface<AssessTables.Request, AssessTables.Response> = (message: AssessTables.Request, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<AssessTables.Response>, options?: grpc_1.CallOptions | grpc_1.requestCallback<AssessTables.Response>, callback?: grpc_1.requestCallback<AssessTables.Response>): grpc_1.ClientUnaryCall => {
             return super.AssessTables(message, metadata, options, callback);
+        };
+        WriteStream: GrpcChunkServiceInterface<Write.Request, Write.Response> = (metadata?: grpc_1.Metadata | grpc_1.CallOptions, options?: grpc_1.CallOptions): grpc_1.ClientDuplexStream<Write.Request, Write.Response> => {
+            return super.WriteStream(metadata, options);
         };
     }
 }
