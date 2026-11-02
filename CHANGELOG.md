@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.43](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.42...v0.0.43) (2026-11-02)
+
+
+### Bug Fixes
+
+* **deps:** Update pnpm to v12.15.0 ([#177](https://github.com/cloudquery/plugin-pb-javascript/issues/177)) ([92225b0](https://github.com/cloudquery/plugin-pb-javascript/commit/92225b0ea03ea2045dfc208cf852604a7db195d9))
+
 ## [0.0.42](https://github.com/cloudquery/plugin-pb-javascript/compare/v0.0.41...v0.0.42) (2026-10-16)
 
 
